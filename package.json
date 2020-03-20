@@ -1,26 +1,25 @@
 {
-  "name": "COVID-19-API",
+  "name": "covid-19-api",
   "version": "1.0.0",
-  "description": "A simple Node API for getting coronavirus cases from scraped information.",
+  "description": "A simple Node API for getting COVID-19 stats from scraped information.",
   "main": "server.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "cheerio": "^0.22.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "quick.db": "^6.3.2",
-    "request": "^2.88.2"
-  },
   "repository": {
-    "url": "https://github.com/nijokarively/Covid-19-API.git"
+    "type": "git",
+    "url": "git+https://github.com/nijokarively/Covid-19-API.git"
   },
-  "license": "MIT",
   "keywords": [
     "API",
-    "coronavirus",
-    "covid"
-  ]
+    "covid",
+    "coronavirus"
+  ],
+  "author": "Nijo Karively",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nijokarively/Covid-19-API/issues"
+  },
+  "homepage": "https://github.com/nijokarively/Covid-19-API#readme"
 }
