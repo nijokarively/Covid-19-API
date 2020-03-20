@@ -1,7 +1,0 @@
-{
-  "name": "coronavirusInfo",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}

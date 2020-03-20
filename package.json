@@ -4,16 +4,15 @@
   "description": "A simple Node API for getting coronavirus cases from scraped information.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "build-frontend": "cd frontend && ionic build --engine=browser"
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "cheerio": "^0.22.0",
     "cors": "^2.8.5",
-    "express": "^4.16.3",
+    "express": "^4.17.1",
     "quick.db": "^6.3.2",
-    "request": "*"
+    "request": "^2.88.2"
   },
   "repository": {
     "url": "https://github.com/nijokarively/Covid-19-API.git"
