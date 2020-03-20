@@ -21,5 +21,13 @@
   "bugs": {
     "url": "https://github.com/nijokarively/Covid-19-API/issues"
   },
-  "homepage": "https://github.com/nijokarively/Covid-19-API#readme"
+  "homepage": "https://github.com/nijokarively/Covid-19-API#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^0.22.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "quick.db": "^6.3.2",
+    "request": "^2.88.2"
+  }
 }
