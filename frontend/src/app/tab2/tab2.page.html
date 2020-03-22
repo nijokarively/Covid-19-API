@@ -12,6 +12,11 @@
       <ion-title size="large">COVID-19 by Country</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-toolbar>
     <ion-searchbar [(ngModel)]="searchCountry" autocomplete="off"></ion-searchbar>
   </ion-toolbar>

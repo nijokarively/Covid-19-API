@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      Global COVID-19 Info\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">Global Coronavirus information</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Coronavirus cases</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.cases | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Deaths</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.deaths | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Recovered</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.recovered | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Active Cases</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.cases - (info?.recovered + info?.deaths)  | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Closed Cases</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.recovered + info?.deaths | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n  \n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      Global COVID-19 Info\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">Global Covid-19 Info</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Cases</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.cases | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Deaths</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.deaths | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Recovered</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.recovered | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Active Cases</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.cases - (info?.recovered + info?.deaths)  | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Global</ion-card-subtitle>\n      <ion-card-title>Closed Cases</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <h1>{{info?.recovered + info?.deaths | number}}</h1>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>");
 
 /***/ }),
 
@@ -91,6 +91,16 @@ let Tab1Page = class Tab1Page {
         this.covidService.getAll().subscribe((data) => {
             this.info = data;
         });
+    }
+    doRefresh(event) {
+        console.log('Refreshing');
+        this.covidService.getAll().subscribe((data) => {
+            this.info = data;
+        });
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            event.target.complete();
+        }, 3000);
     }
 };
 Tab1Page.ctorParameters = () => [
