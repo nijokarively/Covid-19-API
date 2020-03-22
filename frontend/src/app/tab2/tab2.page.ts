@@ -29,7 +29,7 @@ export class Tab2Page {
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
-    }, 3000);
+    }, 2000);
   }
 
 }

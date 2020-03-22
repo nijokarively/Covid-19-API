@@ -143,7 +143,7 @@
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      COVID-19 by Country\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">COVID-19 by Country</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\n  </ion-toolbar>\n\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\n    <ion-item>\n      <ion-label>\n        <h1>{{country.country}}</h1>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>";
+    __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      COVID-19 by Country\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  \n<ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n  <ion-refresher-content></ion-refresher-content>\n</ion-refresher>\n\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">COVID-19 by Country</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\n  </ion-toolbar>\n\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\n    <ion-item>\n      <ion-label>\n        <h1>{{country.country}}</h1>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>";
     /***/
   },
 
@@ -301,7 +301,7 @@
         setTimeout(() => {
           console.log('Async operation has ended');
           event.target.complete();
-        }, 3000);
+        }, 2000);
       }
 
     };
