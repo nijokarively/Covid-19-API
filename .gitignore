@@ -1,3 +1,5 @@
 /node_modules
 json.sqlite
 package-lock.json
+/frontend/node_modules
+/frontend/package-lock.json
