@@ -17,7 +17,17 @@ export class Tab1Page {
     });
 
   }
-  
-  
 
+  doRefresh(event) {
+    console.log('Refreshing');
+    
+    this.covidService.getAll().subscribe((data)=>{
+      this.info = data;
+    });
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 3000);
+  }
 }

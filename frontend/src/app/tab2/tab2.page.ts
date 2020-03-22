@@ -19,4 +19,17 @@ export class Tab2Page {
 
   }
 
+  doRefresh(event) {
+    console.log('Refreshing');
+    
+    this.covidService.getCountries().subscribe((data)=>{
+      this.countries = data;
+    });
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 3000);
+  }
+
 }
