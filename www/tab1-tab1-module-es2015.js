@@ -80,23 +80,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tab1Page", function() { return Tab1Page; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _covid_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../covid.service */ "./src/app/covid.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _covid_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../covid.service */ "./src/app/covid.service.ts");
+
+
 
 
 
 let Tab1Page = class Tab1Page {
-    constructor(covidService) {
+    constructor(covidService, toastController) {
         this.covidService = covidService;
+        this.toastController = toastController;
         this.info = null;
+    }
+    refreshingToast() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            console.log('Refreshing...');
+            const toast = yield this.toastController.create({
+                message: 'Refreshing...',
+                duration: 2000
+            });
+            toast.present();
+        });
+    }
+    createSubscription() {
+        this.subscription = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(300000).subscribe((val) => {
+            this.refreshingToast();
+            this.getData();
+        });
+    }
+    deleteSubscription() {
+        this.subscription.unsubscribe();
+    }
+    getData() {
         this.covidService.getAll().subscribe((data) => {
             this.info = data;
         });
     }
+    ionViewWillEnter() {
+        this.getData();
+        this.createSubscription();
+    }
+    ionViewDidLeave() {
+        this.deleteSubscription();
+    }
     doRefresh(event) {
-        console.log('Refreshing');
-        this.covidService.getAll().subscribe((data) => {
-            this.info = data;
-        });
+        this.refreshingToast();
+        this.getData();
         setTimeout(() => {
             console.log('Async operation has ended');
             event.target.complete();
@@ -104,7 +135,8 @@ let Tab1Page = class Tab1Page {
     }
 };
 Tab1Page.ctorParameters = () => [
-    { type: _covid_service__WEBPACK_IMPORTED_MODULE_2__["CovidService"] }
+    { type: _covid_service__WEBPACK_IMPORTED_MODULE_4__["CovidService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
 ];
 Tab1Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -112,7 +144,7 @@ Tab1Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./tab1.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/tab1/tab1.page.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./tab1.page.scss */ "./src/app/tab1/tab1.page.scss")).default]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_2__["CovidService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_4__["CovidService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
 ], Tab1Page);
 
 

@@ -143,7 +143,7 @@
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      COVID-19 by Country\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  \n<ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n  <ion-refresher-content></ion-refresher-content>\n</ion-refresher>\n\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">COVID-19 by Country</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\n  </ion-toolbar>\n\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\n    <ion-item>\n      <ion-label>\n        <h1>{{country.country}}</h1>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>";
+    __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      COVID-19 by Country\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  \n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">COVID-19 by Country</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\n  </ion-toolbar>\n\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\n    <ion-item>\n      <ion-label>\n        <h1>{{country.country}}</h1>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>";
     /***/
   },
 
@@ -280,24 +280,69 @@
     /* harmony import */
 
 
-    var _covid_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @ionic/angular */
+    "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+    /* harmony import */
+
+
+    var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! rxjs */
+    "./node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var _covid_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ../covid.service */
     "./src/app/covid.service.ts");
 
     let Tab2Page = class Tab2Page {
-      constructor(covidService) {
+      constructor(covidService, toastController) {
         this.covidService = covidService;
+        this.toastController = toastController;
         this.countries = null;
+      }
+
+      refreshingToast() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+          console.log('Refreshing...');
+          const toast = yield this.toastController.create({
+            message: 'Refreshing...',
+            duration: 2000
+          });
+          toast.present();
+        });
+      }
+
+      createSubscription() {
+        this.subscription = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(300000).subscribe(val => {
+          this.refreshingToast();
+          this.getData();
+        });
+      }
+
+      deleteSubscription() {
+        this.subscription.unsubscribe();
+      }
+
+      getData() {
         this.covidService.getCountries().subscribe(data => {
           this.countries = data;
         });
       }
 
+      ionViewWillEnter() {
+        this.getData();
+        this.createSubscription();
+      }
+
+      ionViewDidLeave() {
+        this.deleteSubscription();
+      }
+
       doRefresh(event) {
-        console.log('Refreshing');
-        this.covidService.getCountries().subscribe(data => {
-          this.countries = data;
-        });
+        this.refreshingToast();
+        this.getData();
         setTimeout(() => {
           console.log('Async operation has ended');
           event.target.complete();
@@ -307,7 +352,9 @@
     };
 
     Tab2Page.ctorParameters = () => [{
-      type: _covid_service__WEBPACK_IMPORTED_MODULE_2__["CovidService"]
+      type: _covid_service__WEBPACK_IMPORTED_MODULE_4__["CovidService"]
+    }, {
+      type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]
     }];
 
     Tab2Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -318,7 +365,7 @@
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./tab2.page.scss */
       "./src/app/tab2/tab2.page.scss")).default]
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_2__["CovidService"]])], Tab2Page);
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_4__["CovidService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])], Tab2Page);
     /***/
   }
 }]);
