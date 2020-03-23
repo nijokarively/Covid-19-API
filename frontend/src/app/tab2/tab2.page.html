@@ -11,27 +11,34 @@
 </ion-toolbar>
 
 <ion-content [fullscreen]="true">
-  
+
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <ion-list *ngFor="let country of countries | filter:searchCountry">
-    <ion-item lines="none" class="ion-no-padding">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>
-            <h1>{{country.country}}</h1>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p>
-            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>
-            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>
-            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}
-          </p>
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
+    <ion-card lines="none" class="ion-no-padding">
+      <ion-card-header>
+        <ion-card-title>
+          {{country.country}}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active:
+          {{country.active | number}}<br>
+          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>
+          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}
+        </p>
+      </ion-card-content>
+      <!-- <ion-label>
+        <h1>{{country.country}}</h1>
+        <p>
+          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>
+          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>
+          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}
+        </p>
+      </ion-label> -->
+    </ion-card>
   </ion-list>
 </ion-content>
