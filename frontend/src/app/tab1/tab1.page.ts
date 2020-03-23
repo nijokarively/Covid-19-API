@@ -12,7 +12,7 @@ export class Tab1Page {
 
   info: any = null;
 
-  private subscription: Subscription;
+  private sub: Subscription;
 
   constructor(private covidService: CovidService, public toastController: ToastController) {}
 
@@ -26,14 +26,14 @@ export class Tab1Page {
   }
 
   createSubscription(){
-    this.subscription = interval(300000).subscribe((val) => { 
+    this.sub = interval(300000).subscribe((val) => { 
       this.refreshingToast();
       this.getData();
     });
   }
 
   deleteSubscription(){
-    this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   getData(){
@@ -44,7 +44,7 @@ export class Tab1Page {
 
   ionViewWillEnter(){
     this.getData();
-    this.createSubscription()
+    this.createSubscription();
   }
 
   ionViewDidLeave(){

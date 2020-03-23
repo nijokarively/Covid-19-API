@@ -13,7 +13,7 @@ export class Tab2Page {
   countries: any = null;
   searchCountry: any;
 
-  private subscription: Subscription;
+  private sub: Subscription;
 
   constructor(private covidService: CovidService, public toastController: ToastController) {}
 
@@ -27,14 +27,14 @@ export class Tab2Page {
   }
 
   createSubscription(){
-    this.subscription = interval(300000).subscribe((val) => { 
+    this.sub = interval(300000).subscribe((val) => { 
       this.refreshingToast();
       this.getData();
     });
   }
 
   deleteSubscription(){
-    this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   getData(){
@@ -45,7 +45,7 @@ export class Tab2Page {
 
   ionViewWillEnter(){
     this.getData();
-    this.createSubscription()
+    this.createSubscription();
   }
 
   ionViewDidLeave(){
