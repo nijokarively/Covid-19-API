@@ -6,6 +6,10 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-toolbar>
+  <ion-searchbar [(ngModel)]="searchCountry" autocomplete="off"></ion-searchbar>
+</ion-toolbar>
+
 <ion-content [fullscreen]="true">
   
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -18,12 +22,8 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-toolbar>
-    <ion-searchbar [(ngModel)]="searchCountry" autocomplete="off"></ion-searchbar>
-  </ion-toolbar>
-
-  <ion-list >
-    <ion-item lines="none" class="ion-no-padding" *ngFor="let country of countries | filter:searchCountry">
+  <ion-list *ngFor="let country of countries | filter:searchCountry">
+    <ion-item lines="none" class="ion-no-padding">
       <ion-card>
         <ion-card-header>
           <ion-card-title>

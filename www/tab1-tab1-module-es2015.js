@@ -105,13 +105,13 @@ let Tab1Page = class Tab1Page {
         });
     }
     createSubscription() {
-        this.subscription = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(300000).subscribe((val) => {
+        this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(300000).subscribe((val) => {
             this.refreshingToast();
             this.getData();
         });
     }
     deleteSubscription() {
-        this.subscription.unsubscribe();
+        this.sub.unsubscribe();
     }
     getData() {
         this.covidService.getAll().subscribe((data) => {
