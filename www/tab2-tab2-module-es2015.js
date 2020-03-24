@@ -213,7 +213,9 @@ let Tab2Page = class Tab2Page {
     }
     getData() {
         this.covidService.getCountries().subscribe((data) => {
-            this.countries = data;
+            if (data) {
+                this.countries = data;
+            }
         });
     }
     ionViewWillEnter() {

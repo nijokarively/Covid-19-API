@@ -193,7 +193,9 @@
 
       getData() {
         this.covidService.getAll().subscribe(data => {
-          this.info = data;
+          if (data) {
+            this.info = data;
+          }
         });
       }
 

@@ -327,7 +327,9 @@
 
       getData() {
         this.covidService.getCountries().subscribe(data => {
-          this.countries = data;
+          if (data) {
+            this.countries = data;
+          }
         });
       }
 
