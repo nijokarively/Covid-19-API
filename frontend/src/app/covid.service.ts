@@ -11,7 +11,7 @@ export class CovidService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get(`${this.apiUrl}all` );
+    return this.http.get(`${this.apiUrl}all`);
   }
 
   getCountries() {

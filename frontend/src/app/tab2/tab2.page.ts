@@ -40,6 +40,7 @@ export class Tab2Page {
 
   getData() {
     this.covidService.getCountries().subscribe((data) => {
+      console.log(data);
       if (data) {
         this.countries = data;
         this.storage.set('countries', data);
