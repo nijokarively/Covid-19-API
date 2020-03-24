@@ -81,16 +81,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _covid_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../covid.service */ "./src/app/covid.service.ts");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _covid_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../covid.service */ "./src/app/covid.service.ts");
+
 
 
 
 
 
 let Tab1Page = class Tab1Page {
-    constructor(covidService, toastController) {
+    constructor(covidService, storage, toastController) {
         this.covidService = covidService;
+        this.storage = storage;
         this.toastController = toastController;
         this.info = null;
     }
@@ -105,7 +108,7 @@ let Tab1Page = class Tab1Page {
         });
     }
     createSubscription() {
-        this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(300000).subscribe((val) => {
+        this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["interval"])(300000).subscribe((val) => {
             this.refreshingToast();
             this.getData();
         });
@@ -115,7 +118,15 @@ let Tab1Page = class Tab1Page {
     }
     getData() {
         this.covidService.getAll().subscribe((data) => {
-            this.info = data;
+            if (data) {
+                this.info = data;
+                this.storage.set('global', data);
+            }
+            else {
+                this.storage.get('global').then((val) => {
+                    this.info = val;
+                });
+            }
         });
     }
     ionViewWillEnter() {
@@ -135,7 +146,8 @@ let Tab1Page = class Tab1Page {
     }
 };
 Tab1Page.ctorParameters = () => [
-    { type: _covid_service__WEBPACK_IMPORTED_MODULE_4__["CovidService"] },
+    { type: _covid_service__WEBPACK_IMPORTED_MODULE_5__["CovidService"] },
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
 ];
 Tab1Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -144,7 +156,7 @@ Tab1Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./tab1.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/tab1/tab1.page.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./tab1.page.scss */ "./src/app/tab1/tab1.page.scss")).default]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_4__["CovidService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_5__["CovidService"], _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
 ], Tab1Page);
 
 

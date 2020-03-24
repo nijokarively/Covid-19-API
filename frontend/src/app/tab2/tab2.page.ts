@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { Subscription, interval  } from 'rxjs';
+import { Storage } from '@ionic/storage';
+import { Subscription, interval } from 'rxjs';
 import { CovidService } from '../covid.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class Tab2Page {
 
   private sub: Subscription;
 
-  constructor(private covidService: CovidService, public toastController: ToastController) {}
+  constructor(private covidService: CovidService, public toastController: ToastController, private storage: Storage) { }
 
   async refreshingToast() {
     console.log('Refreshing...');
@@ -26,36 +27,43 @@ export class Tab2Page {
     toast.present();
   }
 
-  createSubscription(){
-    this.sub = interval(300000).subscribe((val) => { 
+  createSubscription() {
+    this.sub = interval(300000).subscribe((val) => {
       this.refreshingToast();
       this.getData();
     });
   }
 
-  deleteSubscription(){
+  deleteSubscription() {
     this.sub.unsubscribe();
   }
 
-  getData(){
-    this.covidService.getCountries().subscribe((data)=>{
-      this.countries = data;
+  getData() {
+    this.covidService.getCountries().subscribe((data) => {
+      if (data) {
+        this.countries = data;
+        this.storage.set('countries', data);
+      } else {
+        this.storage.get('countries').then((val) => {
+          this.countries = val;
+        });
+      }
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getData();
     this.createSubscription();
   }
 
-  ionViewDidLeave(){
+  ionViewDidLeave() {
     this.deleteSubscription();
   }
 
   doRefresh(event) {
-    this.refreshingToast();  
+    this.refreshingToast();
     this.getData();
-    
+
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();

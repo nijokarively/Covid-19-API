@@ -179,17 +179,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _covid_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../covid.service */ "./src/app/covid.service.ts");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _covid_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../covid.service */ "./src/app/covid.service.ts");
+
 
 
 
 
 
 let Tab2Page = class Tab2Page {
-    constructor(covidService, toastController) {
+    constructor(covidService, toastController, storage) {
         this.covidService = covidService;
         this.toastController = toastController;
+        this.storage = storage;
         this.countries = null;
     }
     refreshingToast() {
@@ -203,7 +206,7 @@ let Tab2Page = class Tab2Page {
         });
     }
     createSubscription() {
-        this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(300000).subscribe((val) => {
+        this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["interval"])(300000).subscribe((val) => {
             this.refreshingToast();
             this.getData();
         });
@@ -213,7 +216,15 @@ let Tab2Page = class Tab2Page {
     }
     getData() {
         this.covidService.getCountries().subscribe((data) => {
-            this.countries = data;
+            if (data) {
+                this.countries = data;
+                this.storage.set('countries', data);
+            }
+            else {
+                this.storage.get('countries').then((val) => {
+                    this.countries = val;
+                });
+            }
         });
     }
     ionViewWillEnter() {
@@ -233,8 +244,9 @@ let Tab2Page = class Tab2Page {
     }
 };
 Tab2Page.ctorParameters = () => [
-    { type: _covid_service__WEBPACK_IMPORTED_MODULE_4__["CovidService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
+    { type: _covid_service__WEBPACK_IMPORTED_MODULE_5__["CovidService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] }
 ];
 Tab2Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -242,7 +254,7 @@ Tab2Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./tab2.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/tab2/tab2.page.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./tab2.page.scss */ "./src/app/tab2/tab2.page.scss")).default]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_4__["CovidService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_5__["CovidService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"], _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"]])
 ], Tab2Page);
 
 
