@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { Subscription, interval } from 'rxjs';
 import { CovidService } from '../covid.service';
 
@@ -14,7 +15,7 @@ export class Tab1Page {
 
   private sub: Subscription;
 
-  constructor(private covidService: CovidService, public toastController: ToastController) { }
+  constructor(private covidService: CovidService, private storage: Storage, public toastController: ToastController) { }
 
   async refreshingToast() {
     console.log('Refreshing...');
@@ -40,6 +41,11 @@ export class Tab1Page {
     this.covidService.getAll().subscribe((data) => {
       if (data) {
         this.info = data;
+        this.storage.set('global', data);
+      } else {
+        this.storage.get('global').then((val) => {
+          this.info = val;
+        });
       }
     });
   }
