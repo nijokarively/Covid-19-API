@@ -193,9 +193,9 @@ var getRegionsDe = setInterval(async () => {
   let responseData = response.data.states;
 
   for (var i = 0; i < responseData.length; i++) {
-    let area = { "area": responseData[i].name, "cases": responseData[i].count || 0, "deaths": responseData[i].deaths || 0};
+    let region = { "region": responseData[i].name, "cases": responseData[i].count || 0, "deaths": responseData[i].deaths || 0};
 
-    result.push(area);
+    result.push(region);
   }
 
   db.set("de", result);
@@ -219,9 +219,9 @@ var getRegionsIn = setInterval(async () => {
   let responseData = response.data.data.regional;
 
   for (var i = 0; i < responseData.length; i++) {
-    let area = { "area": responseData[i].loc, "cases": responseData[i].confirmedCasesIndian + responseData[i].confirmedCasesForeign || 0, "deaths": responseData[i].deaths || 0};
+    let region = { "region": responseData[i].loc, "cases": responseData[i].confirmedCasesIndian + responseData[i].confirmedCasesForeign || 0, "deaths": responseData[i].deaths || 0};
 
-    result.push(area);
+    result.push(region);
   }
 
   db.set("in", result);
@@ -244,9 +244,9 @@ var getRegionsIt = setInterval(async () => {
   const result = [];
 
   for (var i = 0; i < response.data.length; i++) {
-    let area = { "area": response.data[i].denominazione_regione, "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0};
+    let region = { "region": response.data[i].denominazione_regione, "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0};
 
-    result.push(area);
+    result.push(region);
   }
 
   db.set("it", result);
@@ -268,12 +268,12 @@ var getRegionsGb = setInterval(async () => {
 
   // to store parsed data
   const result = [];
-  let responseData = JSON.parse(response.data.data[0].area);
+  let responseData = JSON.parse(response.data.data[0].region);
 
   for (var i = 0; i < responseData.length; i++) {
-    let area = { "area": responseData[i].location, "cases": responseData[i].number || 0};
+    let region = { "region": responseData[i].location, "cases": responseData[i].number || 0};
 
-    result.push(area);
+    result.push(region);
   }
 
   db.set("gb", result);
@@ -315,9 +315,9 @@ var getRegionsUsa = setInterval(async () => {
   const result = [];
 
   for (var i = 0; i < responseOne.length; i++) {
-    let area = { "area": responseOne[i].state, "cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
+    let region = { "region": responseOne[i].state, "cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
 
-    result.push(area);
+    result.push(region);
   }
 
   db.set("us", result);
@@ -350,27 +350,27 @@ app.get("/countries/:country/", async function (req, res) {
   res.send(countries);
 });
 
-app.get("/area/us/", async function (req, res) {
+app.get("/regions/us/", async function (req, res) {
   let regions = await db.fetch("us");
   res.send(regions);
 });
 
-app.get("/area/it/", async function (req, res) {
+app.get("/regions/it/", async function (req, res) {
   let regions = await db.fetch("it");
   res.send(regions);
 });
 
-app.get("/area/gb/", async function (req, res) {
+app.get("/regions/gb/", async function (req, res) {
   let regions = await db.fetch("gb");
   res.send(regions);
 });
 
-app.get("/area/de/", async function (req, res) {
+app.get("/regions/de/", async function (req, res) {
   let regions = await db.fetch("de");
   res.send(regions);
 });
 
-app.get("/area/in/", async function (req, res) {
+app.get("/regions/in/", async function (req, res) {
   let regions = await db.fetch("in");
   res.send(regions);
 });
