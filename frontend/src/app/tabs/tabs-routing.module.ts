@@ -45,6 +45,16 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'regions/:id',
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+        import('../regions/regions.module').then(m => m.RegionsPageModule)
+      }
+    ]
+  },
+  {
     path: '',
     redirectTo: '/tabs/tab1',
     pathMatch: 'full'
@@ -55,4 +65,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

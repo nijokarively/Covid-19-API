@@ -1,100 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["tab2-tab2-module"],{
 
-/***/ "./node_modules/ng2-search-filter/ng2-search-filter.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/ng2-search-filter/ng2-search-filter.js ***!
-  \*************************************************************/
-/*! exports provided: Ng2SearchPipeModule, Ng2SearchPipe */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Ng2SearchPipeModule", function() { return Ng2SearchPipeModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Ng2SearchPipe", function() { return Ng2SearchPipe; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-
-
-class Ng2SearchPipe {
-    /**
-     * @param {?} items object from array
-     * @param {?} term term's search
-     * @return {?}
-     */
-    transform(items, term) {
-        if (!term || !items)
-            return items;
-        return Ng2SearchPipe.filter(items, term);
-    }
-    /**
-     *
-     * @param {?} items List of items to filter
-     * @param {?} term  a string term to compare with every property of the list
-     *
-     * @return {?}
-     */
-    static filter(items, term) {
-        const /** @type {?} */ toCompare = term.toLowerCase();
-        /**
-         * @param {?} item
-         * @param {?} term
-         * @return {?}
-         */
-        function checkInside(item, term) {
-            for (let /** @type {?} */ property in item) {
-                if (item[property] === null || item[property] == undefined) {
-                    continue;
-                }
-                if (typeof item[property] === 'object') {
-                    if (checkInside(item[property], term)) {
-                        return true;
-                    }
-                }
-                if (item[property].toString().toLowerCase().includes(toCompare)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        return items.filter(function (item) {
-            return checkInside(item, term);
-        });
-    }
-}
-Ng2SearchPipe.decorators = [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{
-                name: 'filter',
-                pure: false
-            },] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-];
-/**
- * @nocollapse
- */
-Ng2SearchPipe.ctorParameters = () => [];
-
-class Ng2SearchPipeModule {
-}
-Ng2SearchPipeModule.decorators = [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
-                declarations: [Ng2SearchPipe],
-                exports: [Ng2SearchPipe]
-            },] },
-];
-/**
- * @nocollapse
- */
-Ng2SearchPipeModule.ctorParameters = () => [];
-
-/**
- * Generated bundle index. Do not edit.
- */
-
-
-//# sourceMappingURL=ng2-search-filter.js.map
-
-
-/***/ }),
-
 /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/tab2/tab2.page.html":
 /*!***************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/tab2/tab2.page.html ***!
@@ -104,7 +9,7 @@ Ng2SearchPipeModule.ctorParameters = () => [];
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      COVID-19 by Country\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-toolbar>\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\n</ion-toolbar>\n\n<ion-content [fullscreen]=\"true\">\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\n      <ion-card-header>\n        <ion-card-title>\n          {{country.country}}\n        </ion-card-title>\n      </ion-card-header>\n      <ion-card-content>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active:\n          {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-card-content>\n      <!-- <ion-label>\n        <h1>{{country.country}}</h1>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-label> -->\n    </ion-card>\n  </ion-list>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      COVID-19 by Country\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-toolbar>\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\n</ion-toolbar>\n\n<ion-content [fullscreen]=\"true\">\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\n      <ion-card-header>\n        <ion-card-title>\n          {{country.country}}\n        </ion-card-title>\n      </ion-card-header>\n      <ion-card-content>\n        <ion-icon *ngIf=\"detailCountries.indexOf(country.country) > -1\" (click)='getRegions(country.country)' style=\"float: right; zoom:2.0;\" name=\"chevron-forward-circle\"></ion-icon>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active:\n          {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-card-content>\n      <!-- <ion-label>\n        <h1>{{country.country}}</h1>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-label> -->\n    </ion-card>\n  </ion-list>\n</ion-content>");
 
 /***/ }),
 
@@ -189,11 +94,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let Tab2Page = class Tab2Page {
-    constructor(covidService, toastController, storage) {
+    constructor(covidService, toastController, storage, navCtrl) {
         this.covidService = covidService;
         this.toastController = toastController;
         this.storage = storage;
+        this.navCtrl = navCtrl;
         this.countries = null;
+        this.detailCountries = ["Germany", "India", "Italy", "UK", "USA"];
     }
     refreshingToast() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -204,6 +111,25 @@ let Tab2Page = class Tab2Page {
             });
             toast.present();
         });
+    }
+    getRegions(country) {
+        let countryCode = '';
+        if (country == 'Germany') {
+            countryCode = 'de';
+        }
+        else if (country == 'India') {
+            countryCode = 'in';
+        }
+        else if (country == 'Italy') {
+            countryCode = 'it';
+        }
+        else if (country == 'UK') {
+            countryCode = 'gb';
+        }
+        else if (country == 'USA') {
+            countryCode = 'us';
+        }
+        this.navCtrl.navigateForward(`/regions/${countryCode}`);
     }
     createSubscription() {
         this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["interval"])(300000).subscribe((val) => {
@@ -216,7 +142,6 @@ let Tab2Page = class Tab2Page {
     }
     getData() {
         this.covidService.getCountries().subscribe((data) => {
-            console.log(data);
             if (data) {
                 this.countries = data;
                 this.storage.set('countries', data);
@@ -247,7 +172,8 @@ let Tab2Page = class Tab2Page {
 Tab2Page.ctorParameters = () => [
     { type: _covid_service__WEBPACK_IMPORTED_MODULE_5__["CovidService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
-    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] }
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] }
 ];
 Tab2Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -255,7 +181,7 @@ Tab2Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./tab2.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/tab2/tab2.page.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./tab2.page.scss */ "./src/app/tab2/tab2.page.scss")).default]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_5__["CovidService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"], _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_covid_service__WEBPACK_IMPORTED_MODULE_5__["CovidService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"], _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
 ], Tab2Page);
 
 

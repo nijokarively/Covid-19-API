@@ -710,7 +710,7 @@ const routes = [
     {
         path: '',
         loadChildren: () => __webpack_require__.e(/*! import() | tabs-tabs-module */ "tabs-tabs-module").then(__webpack_require__.bind(null, /*! ./tabs/tabs.module */ "./src/app/tabs/tabs.module.ts")).then(m => m.TabsPageModule)
-    }
+    },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

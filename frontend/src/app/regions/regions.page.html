@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [text]="'Countries'" [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      COVID-19 by Region
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-toolbar>
+  <ion-searchbar [(ngModel)]="searchRegion" autocomplete="off"></ion-searchbar>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngFor="let region of regions | filter:searchRegion">
+    <ion-card lines="none" class="ion-no-padding">
+      <ion-card-header>
+        <ion-card-title>
+          {{region.region}}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          Cases: {{region.cases | number}}</p>
+        <p *ngIf="region.deaths">
+          Deaths: {{region.deaths | number}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
