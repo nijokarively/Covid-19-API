@@ -232,7 +232,7 @@ var getRegionsIt = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
-    response = await axios.get("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json");
+    response = await axios.get("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni-latest.json");
     if (response.status !== 200) {
       console.log("ERROR");
     }
