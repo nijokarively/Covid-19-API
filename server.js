@@ -202,6 +202,32 @@ var getRegionsDe = setInterval(async () => {
   console.log("DE data refreshed", result);
 }, 150000);
 
+var getRegionsIn = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://api.rootnet.in/covid19-in/stats/latest");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
+
+  // to store parsed data
+  const result = [];
+  let responseData = response.data.data.regional;
+
+  for (var i = 0; i < responseData.length; i++) {
+    let area = { "area": responseData[i].loc, "cases": responseData[i].confirmedCasesIndian + responseData[i].confirmedCasesForeign || 0, "deaths": responseData[i].deaths || 0};
+
+    result.push(area);
+  }
+
+  db.set("in", result);
+  console.log("IN data refreshed", result);
+}, 150000);
+
 var getRegionsIt = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
