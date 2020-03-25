@@ -176,31 +176,56 @@ var getcountries = setInterval(async () => {
   console.log("Countries data refreshed", result);
 }, 150000);
 
-// var getRegionsIt = setInterval(async () => {
-//   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
-//   let response;
-//   try {
-//     response = await axios.get("https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-regioni.json");
-//     if (response.status !== 200) {
-//       console.log("ERROR");
-//     }
-//   } catch (err) {
-//     return null;
-//   }
+var getRegionsDe = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://rki-covid-api.now.sh/api/states");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
 
-//   // to store parsed data
-//   const result = [];
-//   console.log(response.data);
+  // to store parsed data
+  const result = [];
+  let responseData = response.data.states;
 
-//   for (var i = 0; i < responseData.length; i++) {
-//     let area = { "area": responseData[i].location, "cases": responseData[i].number || 0};
+  for (var i = 0; i < responseData.length; i++) {
+    let area = { "area": responseData[i].name, "cases": responseData[i].count || 0, "deaths": responseData[i].deaths || 0};
 
-//     result.push(area);
-//   }
+    result.push(area);
+  }
 
-//   db.set("gb", result);
-//   console.log("GB data refreshed", result);
-// }, 15000);
+  db.set("de", result);
+  console.log("DE data refreshed", result);
+}, 150000);
+
+var getRegionsIt = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
+
+  // to store parsed data
+  const result = [];
+
+  for (var i = 0; i < response.data.length; i++) {
+    let area = { "area": response.data[i].denominazione_regione, "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0};
+
+    result.push(area);
+  }
+
+  db.set("it", result);
+  console.log("IT data refreshed", result);
+}, 150000);
 
 
 var getRegionsGb = setInterval(async () => {
@@ -271,7 +296,7 @@ var getRegionsUsa = setInterval(async () => {
 
   db.set("us", result);
   console.log("US data refreshed", result);
-}, 15000);
+}, 150000);
 
 app.get("/", async function (request, response) {
   let a = await db.fetch("all");
@@ -311,5 +336,15 @@ app.get("/area/it/", async function (req, res) {
 
 app.get("/area/gb/", async function (req, res) {
   let regions = await db.fetch("gb");
+  res.send(regions);
+});
+
+app.get("/area/de/", async function (req, res) {
+  let regions = await db.fetch("de");
+  res.send(regions);
+});
+
+app.get("/area/in/", async function (req, res) {
+  let regions = await db.fetch("in");
   res.send(regions);
 });
