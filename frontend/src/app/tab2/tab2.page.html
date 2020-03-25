@@ -24,6 +24,7 @@
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
+        <ion-icon *ngIf="detailCountries.indexOf(country.country) > -1" (click)='getRegions(country.country)' style="float: right; zoom:2.0;" name="chevron-forward-circle"></ion-icon>
         <p>
           Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active:
           {{country.active | number}}<br>

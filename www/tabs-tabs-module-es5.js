@@ -15,7 +15,7 @@
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon name=\"globe\"></ion-icon>\n      <ion-label>Global</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab2\">\n      <ion-icon name=\"flag\"></ion-icon>\n      <ion-label>Countries</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon name=\"help-circle\"></ion-icon>\n      <ion-label>About</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>\n";
+    __webpack_exports__["default"] = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon name=\"globe\"></ion-icon>\n      <ion-label>Global</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab2\">\n      <ion-icon name=\"flag\"></ion-icon>\n      <ion-label>Countries</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon name=\"information-circle\"></ion-icon>\n      <ion-label>About</ion-label>\n    </ion-tab-button>\n    \n  </ion-tab-bar>\n\n</ion-tabs>\n";
     /***/
   },
 
@@ -100,6 +100,16 @@
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
+      }]
+    }, {
+      path: 'regions/:id',
+      children: [{
+        path: '',
+        loadChildren: () => Promise.all(
+        /*! import() | regions-regions-module */
+        [__webpack_require__.e("common"), __webpack_require__.e("regions-regions-module")]).then(__webpack_require__.bind(null,
+        /*! ../regions/regions.module */
+        "./src/app/regions/regions.module.ts")).then(m => m.RegionsPageModule)
       }]
     }, {
       path: '',
