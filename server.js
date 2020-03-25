@@ -10,6 +10,68 @@ app.use(cors());
 
 app.use('/', express.static('www'));
 
+const usStatesDic = {
+  "AL": "Alabama",
+  "AK": "Alaska",
+  "AS": "American Samoa",
+  "AZ": "Arizona",
+  "AR": "Arkansas",
+  "CA": "California",
+  "CO": "Colorado",
+  "CT": "Connecticut",
+  "DE": "Delaware",
+  "DC": "District Of Columbia",
+  "FM": "Federated States Of Micronesia",
+  "FL": "Florida",
+  "GA": "Georgia",
+  "GU": "Guam",
+  "HI": "Hawaii",
+  "ID": "Idaho",
+  "IL": "Illinois",
+  "IN": "Indiana",
+  "IA": "Iowa",
+  "KS": "Kansas",
+  "KY": "Kentucky",
+  "LA": "Louisiana",
+  "ME": "Maine",
+  "MH": "Marshall Islands",
+  "MD": "Maryland",
+  "MA": "Massachusetts",
+  "MI": "Michigan",
+  "MN": "Minnesota",
+  "MS": "Mississippi",
+  "MO": "Missouri",
+  "MT": "Montana",
+  "NE": "Nebraska",
+  "NV": "Nevada",
+  "NH": "New Hampshire",
+  "NJ": "New Jersey",
+  "NM": "New Mexico",
+  "NY": "New York",
+  "NC": "North Carolina",
+  "ND": "North Dakota",
+  "MP": "Northern Mariana Islands",
+  "OH": "Ohio",
+  "OK": "Oklahoma",
+  "OR": "Oregon",
+  "PW": "Palau",
+  "PA": "Pennsylvania",
+  "PR": "Puerto Rico",
+  "RI": "Rhode Island",
+  "SC": "South Carolina",
+  "SD": "South Dakota",
+  "TN": "Tennessee",
+  "TX": "Texas",
+  "UT": "Utah",
+  "VT": "Vermont",
+  "VI": "Virgin Islands",
+  "VA": "Virginia",
+  "WA": "Washington",
+  "WV": "West Virginia",
+  "WI": "Wisconsin",
+  "WY": "Wyoming"
+}
+
 var getall = setInterval(async () => {
   let response;
   try {
@@ -193,7 +255,7 @@ var getRegionsDe = setInterval(async () => {
   let responseData = response.data.states;
 
   for (var i = 0; i < responseData.length; i++) {
-    let region = { "region": responseData[i].name, "cases": responseData[i].count || 0, "deaths": responseData[i].deaths || 0};
+    let region = { "region": responseData[i].name, "cases": responseData[i].count || 0, "deaths": responseData[i].deaths || 0 };
 
     result.push(region);
   }
@@ -219,7 +281,7 @@ var getRegionsIn = setInterval(async () => {
   let responseData = response.data.data.regional;
 
   for (var i = 0; i < responseData.length; i++) {
-    let region = { "region": responseData[i].loc, "cases": responseData[i].confirmedCasesIndian + responseData[i].confirmedCasesForeign || 0, "deaths": responseData[i].deaths || 0};
+    let region = { "region": responseData[i].loc, "cases": responseData[i].confirmedCasesIndian + responseData[i].confirmedCasesForeign || 0, "deaths": responseData[i].deaths || 0 };
 
     result.push(region);
   }
@@ -244,7 +306,7 @@ var getRegionsIt = setInterval(async () => {
   const result = [];
 
   for (var i = 0; i < response.data.length; i++) {
-    let region = { "region": response.data[i].denominazione_regione, "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0};
+    let region = { "region": response.data[i].denominazione_regione, "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0 };
 
     result.push(region);
   }
@@ -270,7 +332,7 @@ var getRegionsGb = setInterval(async () => {
   let responseData = JSON.parse(response.data.data[0].area);
 
   for (var i = 0; i < responseData.length; i++) {
-    let region = { "region": responseData[i].location, "cases": responseData[i].number || 0};
+    let region = { "region": responseData[i].location, "cases": responseData[i].number || 0 };
 
     result.push(region);
   }
@@ -314,7 +376,7 @@ var getRegionsUsa = setInterval(async () => {
   const result = [];
 
   for (var i = 0; i < responseOne.length; i++) {
-    let region = { "region": responseOne[i].state, "cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
+    let region = { "region": usStatesDic[responseOne[i].state], "cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
 
     result.push(region);
   }
