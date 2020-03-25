@@ -176,6 +176,59 @@ var getcountries = setInterval(async () => {
   console.log("Countries data refreshed", result);
 }, 150000);
 
+// var getRegionsIt = setInterval(async () => {
+//   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+//   let response;
+//   try {
+//     response = await axios.get("https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-regioni.json");
+//     if (response.status !== 200) {
+//       console.log("ERROR");
+//     }
+//   } catch (err) {
+//     return null;
+//   }
+
+//   // to store parsed data
+//   const result = [];
+//   console.log(response.data);
+
+//   for (var i = 0; i < responseData.length; i++) {
+//     let area = { "area": responseData[i].location, "cases": responseData[i].number || 0};
+
+//     result.push(area);
+//   }
+
+//   db.set("gb", result);
+//   console.log("GB data refreshed", result);
+// }, 15000);
+
+
+var getRegionsGb = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://api.covid19uk.live/");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
+
+  // to store parsed data
+  const result = [];
+  let responseData = JSON.parse(response.data.data[0].area);
+
+  for (var i = 0; i < responseData.length; i++) {
+    let area = { "area": responseData[i].location, "cases": responseData[i].number || 0};
+
+    result.push(area);
+  }
+
+  db.set("gb", result);
+  console.log("GB data refreshed", result);
+}, 150000);
+
 var getRegionsUsa = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response, responseOne, responseTwo;
@@ -211,14 +264,14 @@ var getRegionsUsa = setInterval(async () => {
   const result = [];
 
   for (var i = 0; i < responseOne.length; i++) {
-    let region = { "state": responseOne[i].state, "cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
+    let area = { "area": responseOne[i].state, "cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
 
-    result.push(region);
+    result.push(area);
   }
 
   db.set("us", result);
   console.log("US data refreshed", result);
-}, 150000);
+}, 15000);
 
 app.get("/", async function (request, response) {
   let a = await db.fetch("all");
@@ -246,17 +299,17 @@ app.get("/countries/:country/", async function (req, res) {
   res.send(countries);
 });
 
-app.get("/regions/us/", async function (req, res) {
+app.get("/area/us/", async function (req, res) {
   let regions = await db.fetch("us");
   res.send(regions);
 });
 
-app.get("/regions/it/", async function (req, res) {
+app.get("/area/it/", async function (req, res) {
   let regions = await db.fetch("it");
   res.send(regions);
 });
 
-app.get("/regions/gb/", async function (req, res) {
+app.get("/area/gb/", async function (req, res) {
   let regions = await db.fetch("gb");
   res.send(regions);
 });
