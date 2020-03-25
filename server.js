@@ -255,7 +255,6 @@ var getRegionsIt = setInterval(async () => {
 
 
 var getRegionsGb = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://api.covid19uk.live/");
@@ -268,7 +267,7 @@ var getRegionsGb = setInterval(async () => {
 
   // to store parsed data
   const result = [];
-  let responseData = JSON.parse(response.data.data[0].region);
+  let responseData = JSON.parse(response.data.data[0].area);
 
   for (var i = 0; i < responseData.length; i++) {
     let region = { "region": responseData[i].location, "cases": responseData[i].number || 0};
