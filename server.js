@@ -413,7 +413,7 @@ var getcountries = setInterval(async () => {
       }
       result.push({ country: country.trim() || "" });
       let isoCode =  countryIso2Dic[country.trim().toUpperCase()] || "";
-      result.push({flag: 'flag-' + isoCode.toLowerCase()});
+      result[result.length - 1].flag = 'flag-' + isoCode.toLowerCase();
     }
     // get cases
     if (i % totalColumns === casesColIndex) {
@@ -491,7 +491,7 @@ var getcountries = setInterval(async () => {
 
   db.set("countries", result);
   console.log("Countries data refreshed", result);
-}, 150000);
+}, 10000);
 
 var getRegionsDe = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
