@@ -24,13 +24,19 @@
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-icon *ngIf="detailCountries.indexOf(country.country) > -1" (click)='getRegions(country.country)' style="float: right; zoom:2.0;" name="chevron-forward-circle"></ion-icon>
-        <p>
-          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active:
-          {{country.active | number}}<br>
-          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>
-          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}
-        </p>
+        <ion-icon *ngIf="detailCountries.indexOf(country.country) > -1" (click)='getRegions(country.country)'
+          style="float: right; zoom:2.0;" name="chevron-forward-circle"></ion-icon>
+        <ion-avatar  style="float: left; margin-right:0.5em;" slot="start">
+          <ion-icon style="zoom:3.0;" [attr.name]="country.flag"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <p style="overflow: hidden;">
+            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>
+            Active: {{country.active | number}}<br>
+            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>
+            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}
+          </p>
+        </ion-label>
       </ion-card-content>
       <!-- <ion-label>
         <h1>{{country.country}}</h1>
