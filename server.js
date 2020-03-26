@@ -491,7 +491,7 @@ var getcountries = setInterval(async () => {
 
   db.set("countries", result);
   console.log("Countries data refreshed", result);
-}, 15000);
+}, 150000);
 
 var getRegionsDe = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
