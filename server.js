@@ -604,14 +604,19 @@ var getRegionsGb = setInterval(async () => {
 
 var getRegionsUsa = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  var yesterday = new Date(new Date().setDate(new Date().getDate()-1)).toJSON().slice(0, 10).replace(/-/g, '');
   let response, responseOne, responseTwo;
   try {
     const requestOne = axios.get("https://covidtracking.com/api/states");
-    const requestTwo = axios.get("https://covidtracking.com/api/states/daily?date=" + today);
+    let requestTwo = axios.get("https://covidtracking.com/api/states/daily?date=" + today);
 
     response = await axios.all([requestOne, requestTwo]);
     if (response.status !== 200) {
-      console.log("ERROR");
+      requestTwo = axios.get("https://covidtracking.com/api/states/daily?date=" + yesterday);
+      response = await axios.all([requestOne, requestTwo]);
+      if (response.status !== 200) {
+        console.log("ERROR");
+      }
     }
     responseOne = response[0].data.sort(function (a, b) {
       var stateA = a.state.toLowerCase(), stateB = b.state.toLowerCase()
@@ -637,14 +642,14 @@ var getRegionsUsa = setInterval(async () => {
   const result = [];
 
   for (var i = 0; i < responseOne.length; i++) {
-    let region = { "region": usStatesDic[responseOne[i].state], "cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
+    let region = { "region": usStatesDic[responseOne[i].state], "flag":"flag-us-" + responseOne[i].state.toLowerCase() ,"cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
 
     result.push(region);
   }
 
   db.set("us", result);
   console.log("US data refreshed", result);
-}, 150000);
+}, 10000);
 
 app.get("/", async function (request, response) {
   let a = await db.fetch("all");
