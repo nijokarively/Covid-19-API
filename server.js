@@ -490,8 +490,13 @@ var getcountries = setInterval(async () => {
     }
   }
 
-  db.set("countries", result);
-  console.log("Countries data refreshed", result);
+  let sortedResult = result.sort(function (a, b) {
+    var countryA = a.cases, countryB = b.cases;
+    return countryB - countryA; 
+  });
+
+  db.set("countries", sortedResult);
+  console.log("Countries data refreshed", sortedResult);
 }, 10000);
 
 var getRegionsDe = setInterval(async () => {
