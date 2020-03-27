@@ -34,6 +34,11 @@
                 "glob": "**/*.svg",
                 "input": "src/assets/flags-countries",
                 "output": "./svg"
+              },
+              {
+                "glob": "**/*.svg",
+                "input": "src/assets/emoji",
+                "output": "./svg"
               }
             ],
             "styles": [
