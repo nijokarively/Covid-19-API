@@ -26,8 +26,8 @@
       <ion-card-content>
         <ion-icon *ngIf="detailCountries.indexOf(country.country) > -1" (click)='getRegions(country.country)'
           style="float: right; zoom:2.0;" name="chevron-forward-circle"></ion-icon>
-        <ion-avatar  *ngIf="country.flag" style="float: left; margin-right:0.5em;" slot="start">
-          <ion-icon style="zoom:3.0;" [attr.name]="country.flag"></ion-icon>
+        <ion-avatar  *ngIf="country.flag" style="float: left; margin-right:2.5em;" slot="start">
+          <img src="../assets/flags-countries/{{country.flag}}.svg" />
         </ion-avatar>
         <ion-label>
           <p style="overflow: hidden;">

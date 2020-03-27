@@ -28,16 +28,18 @@
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-avatar *ngIf="region.flag" style="float: left; margin-right:0.5em;" slot="start">
-          <ion-icon style="zoom:3.0;" [attr.name]="region.flag"></ion-icon>
+        <ion-avatar *ngIf="region.flag" style="float: left; margin-right:2.5em;  margin-bottom:1em;" slot="start">
+          <img src="../assets/flags-regions/{{region.flag}}.svg" />
         </ion-avatar>
         <ion-label>
-        <p style="overflow: hidden;">
-          Cases: {{region.cases | number}}</p>
-        <p style="overflow: hidden;" *ngIf="region.deaths">
-          Deaths: {{region.deaths | number}}
-        </p>
-      </ion-label>
+          <br>
+          <p style="overflow: hidden;">
+            Cases: {{region.cases | number}}
+            <span style="overflow: hidden;" *ngIf="region.deaths">
+              | Deaths: {{region.deaths | number}}
+            </span>
+          </p>
+        </ion-label>
       </ion-card-content>
     </ion-card>
   </ion-list>
