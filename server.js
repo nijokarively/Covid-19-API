@@ -348,7 +348,7 @@ const itRegionsDic = {
   "VALLE D'AOSTA": "AO",
   "VENETO": "VE",
   "P.A. TRENTO": "TR",
-  "P.A. BOLZANO": "TR",
+  "P.A. BOLZANO": "TR"
 }
 
 var getall = setInterval(async () => {
@@ -407,7 +407,7 @@ var getcountries = setInterval(async () => {
     .children("td");
 
   // NOTE: this will change when table format change in website
-  const totalColumns = 10;
+  const totalColumns = 11;
   const countryColIndex = 0;
   const casesColIndex = 1;
   const todayCasesColIndex = 2;
@@ -418,6 +418,7 @@ var getcountries = setInterval(async () => {
   const criticalColIndex = 7;
   const casesPerOneMillionColIndex = 8;
   const deathsPerOneMillionColIndex = 9;
+  const firstCaseColIndex = 10;
 
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
@@ -438,7 +439,7 @@ var getcountries = setInterval(async () => {
         country = cell.children[0].next.children[0].data || "";
       }
       result.push({ country: country.trim() || "" });
-      let isoCode =  countryIso2Dic[country.trim().toUpperCase()] || "";
+      let isoCode = countryIso2Dic[country.trim().toUpperCase()] || "";
       result[result.length - 1].flag = 'flag-' + isoCode.toLowerCase();
     }
     // get cases
@@ -513,11 +514,16 @@ var getcountries = setInterval(async () => {
         10
       );
     }
+    // get total deaths per one million population
+    if (i % totalColumns === firstCaseColIndex) {
+      let firstCase = cell.children.length != 0 ? cell.children[0].data : "";
+      result[result.length - 1].firstCase = firstCase.trim().replace(/,/g, "") || "";
+    }
   }
 
   let sortedResult = result.sort(function (a, b) {
     var countryA = a.cases, countryB = b.cases;
-    return countryB - countryA; 
+    return countryB - countryA;
   });
 
   db.set("countries", sortedResult);
@@ -593,8 +599,8 @@ var getRegionsIt = setInterval(async () => {
 
   for (var i = 0; i < response.data.length; i++) {
     let regionName = response.data[i].denominazione_regione;
-    let flag =  itRegionsDic[regionName.toUpperCase()];
-    let region = { "region": response.data[i].denominazione_regione, "flag":"flag-it-" + flag.toLowerCase(), "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0 };
+    let flag = itRegionsDic[regionName.toUpperCase()];
+    let region = { "region": response.data[i].denominazione_regione, "flag": "flag-it-" + flag.toLowerCase(), "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0 };
 
     result.push(region);
   }
@@ -631,7 +637,7 @@ var getRegionsGb = setInterval(async () => {
 
 var getRegionsUsa = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
-  var yesterday = new Date(new Date().setDate(new Date().getDate()-1)).toJSON().slice(0, 10).replace(/-/g, '');
+  var yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toJSON().slice(0, 10).replace(/-/g, '');
   let response, responseOne, responseTwo;
   try {
     const requestOne = axios.get("https://covidtracking.com/api/states");
@@ -669,7 +675,7 @@ var getRegionsUsa = setInterval(async () => {
   const result = [];
 
   for (var i = 0; i < responseOne.length; i++) {
-    let region = { "region": usStatesDic[responseOne[i].state], "flag":"flag-us-" + responseOne[i].state.toLowerCase() ,"cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
+    let region = { "region": usStatesDic[responseOne[i].state], "flag": "flag-us-" + responseOne[i].state.toLowerCase(), "cases": responseOne[i].positive || 0, "todayCases": (responseTwo[i] || {}).positive || 0, "deaths": responseOne[i].death || 0, "todayDeaths": (responseTwo[i] || {}).death || 0 };
 
     result.push(region);
   }
