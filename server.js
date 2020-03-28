@@ -327,6 +327,30 @@ const usStatesDic = {
   "WY": "Wyoming"
 }
 
+const itRegionsDic = {
+  "ABRUZZO": "AB",
+  "BASILICATA": "BA",
+  "CALABRIA": "CB",
+  "CAMPANIA": "CA",
+  "EMILIA ROMAGNA": "ER",
+  "FRIULI VENEZIA GIULIA": "FG",
+  "LAZIO": "LA",
+  "LIGURIA": "LI",
+  "LOMBARDIA": "LO",
+  "MARCHE": "MA",
+  "MOLISE": "MO",
+  "PIEMONTE": "PI",
+  "PUGLIA": "PU",
+  "SARDEGNA": "SA",
+  "SICILIA": "SI",
+  "TOSCANA": "TO",
+  "UMBRIA": "UM",
+  "VALLE D'AOSTA": "AO",
+  "VENETO": "VE",
+  "P.A. TRENTO": "TR",
+  "P.A. BOLZANO": "TR",
+}
+
 var getall = setInterval(async () => {
   let response;
   try {
@@ -568,7 +592,9 @@ var getRegionsIt = setInterval(async () => {
   const result = [];
 
   for (var i = 0; i < response.data.length; i++) {
-    let region = { "region": response.data[i].denominazione_regione, "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0 };
+    let regionName = response.data[i].denominazione_regione;
+    let flag =  itRegionsDic[regionName.toUpperCase()];
+    let region = { "region": response.data[i].denominazione_regione, "flag":"flag-it-" + flag.toLowerCase(), "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0 };
 
     result.push(region);
   }
@@ -650,7 +676,7 @@ var getRegionsUsa = setInterval(async () => {
 
   db.set("us", result);
   console.log("US data refreshed", result);
-}, 10000);
+}, 150000);
 
 app.get("/", async function (request, response) {
   let a = await db.fetch("all");
