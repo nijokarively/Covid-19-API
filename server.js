@@ -260,8 +260,9 @@ const countryIso2Dic = {
   "YEMEN": "YE",
   "ZAMBIA": "ZM",
   "ZIMBABWE": "ZW",
-  "DIAMOND PRINCESS": "BM",
-  "CHANNEL ISLANDS": "GB"
+  "DIAMOND PRINCESS": "GB",
+  "CHANNEL ISLANDS": "GB",
+  "MS ZAANDAM": "NL"
 }
 
 const usStatesDic = {
