@@ -549,6 +549,34 @@ var getcountries = setInterval(async () => {
   console.log("Countries data refreshed", sortedResult);
 }, 150000);
 
+var getRegionsAt = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://covid19.spiessknafl.at/covid19/api/bundesland");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
+
+  // to store parsed data
+  const result = [];
+  let responseData = response.data;
+
+  for (var i = 0; i < responseData.length; i++) {
+    let regionName = responseData[i].Name;
+    // let flag = "flag-de-" + deRegionsDic[regionName];
+    let region = { "region": regionName, "cases": responseData[i].Infected || 0, "deaths": responseData[i].Dead || 0 };
+
+    result.push(region);
+  }
+
+  db.set("at", result);
+  console.log("AT data refreshed", result);
+}, 150000);
+
 var getRegionsDe = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
@@ -753,5 +781,10 @@ app.get("/regions/de/", async function (req, res) {
 
 app.get("/regions/in/", async function (req, res) {
   let regions = await db.fetch("in");
+  res.send(regions);
+});
+
+app.get("/regions/at/", async function (req, res) {
+  let regions = await db.fetch("at");
   res.send(regions);
 });
