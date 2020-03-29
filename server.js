@@ -370,6 +370,28 @@ const deRegionsDic = {
   "Thüringen" : "th"
 }
 
+const EsRegionsDic = {
+  "andalucia" : ["Andalucia"],
+  "aragon" : ["Aragon"],
+  "asturias" : ["Asturias"],
+  "baleares" : ["Baleares"],
+  "canarias" : ["Canarias"],
+  "cantabria" : ["Cantabria"],
+  "castilla-la-mancha" : ["Castilla la Mancha"],
+  "castilla-y-leon" : ["Castilla y Leon"],
+  "cataluna" : ["Cataluna"],
+  "ceuta" : ["Ceuta"],
+  "c-valenciana" : ["Comunidad Valenciana"],
+  "extremadura" : ["Extremadura"],
+  "galicia" : ["Galicia"],
+  "madrid" : ["Madrid"],
+  "melilla" : ["Melilla"],
+  "murcia" : ["Murcia"],
+  "navarra" : ["Navarra"],
+  "pais-vasco" : ["Pais Vasco"],
+  "la-rioja" : ["La Rioja"]
+}
+
 var getall = setInterval(async () => {
   let response;
   try {
@@ -548,6 +570,34 @@ var getcountries = setInterval(async () => {
   db.set("countries", sortedResult);
   console.log("Countries data refreshed", sortedResult);
 }, 150000);
+
+var getRegionsEs = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://covid-19-spain-api.herokuapp.com/reports");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
+
+  // to store parsed data
+  const result = [];
+  let responseData = response.data.data[response.data.data.length - 1].data;
+
+  for (var i = 0; i < responseData.length; i++) {
+    let regionName = EsRegionsDic[responseData[i].autonomousCommunity][0];
+    // let flag = "flag-de-" + deRegionsDic[regionName];
+    let region = { "region": regionName, "cases": responseData[i].values.cases || 0, "deaths": responseData[i].values.deaths || 0 };
+
+    result.push(region);
+  }
+
+  db.set("es", result);
+  console.log("ES data refreshed", result);
+}, 10000);
 
 var getRegionsAt = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
@@ -786,5 +836,10 @@ app.get("/regions/in/", async function (req, res) {
 
 app.get("/regions/at/", async function (req, res) {
   let regions = await db.fetch("at");
+  res.send(regions);
+});
+
+app.get("/regions/es/", async function (req, res) {
+  let regions = await db.fetch("es");
   res.send(regions);
 });
