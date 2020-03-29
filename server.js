@@ -351,6 +351,25 @@ const itRegionsDic = {
   "P.A. BOLZANO": "TR"
 }
 
+const deRegionsDic = {
+  "Baden-Württem­berg" : "bw",
+  "Bayern" : "ba",
+  "Berlin" : "be",
+  "Brandenburg" : "bb",
+  "Bremen" : "br",
+  "Hamburg" : "ha",
+  "Hessen" : "he",
+  "Mecklenburg-Vor­pommern" : "mv",
+  "Niedersachsen" : "ns",
+  "Nordrhein-West­falen" : "nw",
+  "Rhein­land-Pfalz" : "rp",
+  "Saarland" : "sa",
+  "Sachsen" : "sn",
+  "Sachsen-Anhalt" : "st",
+  "Schles­wig-Holstein" : "sh",
+  "Thüringen" : "th"
+}
+
 var getall = setInterval(async () => {
   let response;
   try {
@@ -547,7 +566,9 @@ var getRegionsDe = setInterval(async () => {
   let responseData = response.data.states;
 
   for (var i = 0; i < responseData.length; i++) {
-    let region = { "region": responseData[i].name, "cases": responseData[i].count || 0, "deaths": responseData[i].deaths || 0 };
+    let regionName = responseData[i].name;
+    let flag = "flag-de-" + deRegionsDic[regionName];
+    let region = { "region": regionName, "flag": flag, "cases": responseData[i].count || 0, "deaths": responseData[i].deaths || 0 };
 
     result.push(region);
   }
