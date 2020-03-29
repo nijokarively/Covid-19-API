@@ -597,7 +597,35 @@ var getRegionsEs = setInterval(async () => {
 
   db.set("es", result);
   console.log("ES data refreshed", result);
-}, 10000);
+}, 150000);
+
+var getRegionsCn = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://covid-api.com/api/reports?iso=chn");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
+
+  // to store parsed data
+  const result = [];
+  let responseData = response.data.data;
+
+  for (var i = 0; i < responseData.length; i++) {
+    let regionName = responseData[i].region.province;
+    // let flag = "flag-de-" + deRegionsDic[regionName];
+    let region = { "region": regionName, "cases": responseData[i].confirmed || 0, "deaths": responseData[i].deaths || 0, "recovered": responseData[i].recovered || 0, "active": responseData[i].active || 0 };
+
+    result.push(region);
+  }
+
+  db.set("cn", result);
+  console.log("CN data refreshed", result);
+}, 150000);
 
 var getRegionsAt = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
