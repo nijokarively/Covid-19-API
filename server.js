@@ -871,3 +871,8 @@ app.get("/regions/es/", async function (req, res) {
   let regions = await db.fetch("es");
   res.send(regions);
 });
+
+app.get("/regions/cn/", async function (req, res) {
+  let regions = await db.fetch("cn");
+  res.send(regions);
+});

@@ -13,7 +13,7 @@ export class Tab2Page {
 
   countries: any = null;
   searchCountry: any;
-  detailCountries = ["Germany", "India", "Italy", "UK", "USA"];
+  detailCountries = ["Germany", "India", "Italy", "UK", "USA", "China", "Spain", "Austria"];
 
   private sub: Subscription;
 
@@ -41,6 +41,12 @@ export class Tab2Page {
       countryCode = 'gb';
     } else if (country == 'USA') {
       countryCode = 'us';
+    } else if (country == 'China') {
+      countryCode = 'cn';
+    } else if (country == 'Spain') {
+      countryCode = 'es';
+    } else if (country == 'Austria') {
+      countryCode = 'at';
     }
 
     this.navCtrl.navigateForward(`/regions/${countryCode}`);
