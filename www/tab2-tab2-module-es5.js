@@ -181,7 +181,7 @@
         this.storage = storage;
         this.navCtrl = navCtrl;
         this.countries = null;
-        this.detailCountries = ["Germany", "India", "Italy", "UK", "USA"];
+        this.detailCountries = ["Germany", "India", "Italy", "UK", "USA", "China", "Spain", "Austria"];
       }
 
       refreshingToast() {
@@ -208,6 +208,12 @@
           countryCode = 'gb';
         } else if (country == 'USA') {
           countryCode = 'us';
+        } else if (country == 'China') {
+          countryCode = 'cn';
+        } else if (country == 'Spain') {
+          countryCode = 'es';
+        } else if (country == 'Austria') {
+          countryCode = 'at';
         }
 
         this.navCtrl.navigateForward("/regions/".concat(countryCode));

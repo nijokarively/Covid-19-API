@@ -100,7 +100,7 @@ let Tab2Page = class Tab2Page {
         this.storage = storage;
         this.navCtrl = navCtrl;
         this.countries = null;
-        this.detailCountries = ["Germany", "India", "Italy", "UK", "USA"];
+        this.detailCountries = ["Germany", "India", "Italy", "UK", "USA", "China", "Spain", "Austria"];
     }
     refreshingToast() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -128,6 +128,15 @@ let Tab2Page = class Tab2Page {
         }
         else if (country == 'USA') {
             countryCode = 'us';
+        }
+        else if (country == 'China') {
+            countryCode = 'cn';
+        }
+        else if (country == 'Spain') {
+            countryCode = 'es';
+        }
+        else if (country == 'Austria') {
+            countryCode = 'at';
         }
         this.navCtrl.navigateForward(`/regions/${countryCode}`);
     }
