@@ -571,6 +571,25 @@ var getcountries = setInterval(async () => {
   console.log("Countries data refreshed", sortedResult);
 }, 150000);
 
+var getGlobalTimeSeries = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://pomber.github.io/covid19/timeseries.json");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
+
+  // to store parsed data
+  const result = response.data;
+
+  db.set("timeseries", result);
+  console.log("Time-Series data refreshed", result);
+}, 150000);
+
 var getRegionsEs = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
@@ -598,6 +617,7 @@ var getRegionsEs = setInterval(async () => {
   db.set("es", result);
   console.log("ES data refreshed", result);
 }, 150000);
+
 
 var getRegionsCn = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
@@ -917,6 +937,11 @@ var listener = app.listen(process.env.PORT, function () {
 app.get("/all/", async function (req, res) {
   let all = await db.fetch("all");
   res.send(all);
+});
+
+app.get("/timeseries/", async function (req, res) {
+  let timeSeries = await db.fetch("timeseries");
+  res.send(timeSeries);
 });
 
 app.get("/countries/", async function (req, res) {

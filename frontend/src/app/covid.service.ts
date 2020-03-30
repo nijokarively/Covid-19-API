@@ -18,6 +18,10 @@ export class CovidService {
     return this.http.get(`${this.apiUrl}countries`);
   }
 
+  getTimeSeries() {
+    return this.http.get(`${this.apiUrl}timeseries`);
+  }
+
   getRegions(countryCode){
     return this.http.get(`${this.apiUrl}regions/${countryCode}`);
   }
