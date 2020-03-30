@@ -1003,6 +1003,10 @@
         return this.http.get("".concat(this.apiUrl, "countries"));
       }
 
+      getTimeSeries() {
+        return this.http.get("".concat(this.apiUrl, "timeseries"));
+      }
+
       getRegions(countryCode) {
         return this.http.get("".concat(this.apiUrl, "regions/").concat(countryCode));
       }

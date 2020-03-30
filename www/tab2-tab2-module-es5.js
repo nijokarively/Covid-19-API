@@ -191,7 +191,8 @@
           "Spain": "es",
           "Austria": "at",
           "Canada": "ca",
-          "Australia": "au"
+          "Australia": "au",
+          "Denmark": "dk"
         };
       }
 
