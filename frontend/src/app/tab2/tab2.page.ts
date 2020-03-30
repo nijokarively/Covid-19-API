@@ -13,7 +13,7 @@ export class Tab2Page {
 
   countries: any = null;
   searchCountry: any;
-  detailCountries = ["Germany", "India", "Italy", "UK", "USA", "China", "Spain", "Austria"];
+  detailCountries = {"Germany":"de", "India":"in", "Italy":"it", "UK":"gb", "USA":"us", "China":"cn", "Spain":"es", "Austria":"at", "Canada":"ca"};
 
   private sub: Subscription;
 
@@ -29,26 +29,7 @@ export class Tab2Page {
   }
 
   getRegions(country) {
-    let countryCode = '';
-    
-    if (country == 'Germany') {
-      countryCode = 'de';
-    } else if (country == 'India') {
-      countryCode = 'in';
-    } else if (country == 'Italy') {
-      countryCode = 'it';
-    } else if (country == 'UK') {
-      countryCode = 'gb';
-    } else if (country == 'USA') {
-      countryCode = 'us';
-    } else if (country == 'China') {
-      countryCode = 'cn';
-    } else if (country == 'Spain') {
-      countryCode = 'es';
-    } else if (country == 'Austria') {
-      countryCode = 'at';
-    }
-
+    let countryCode = this.detailCountries[country];
     this.navCtrl.navigateForward(`/regions/${countryCode}`);
   }
 
