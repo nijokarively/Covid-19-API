@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      COVID-19 by Country\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-toolbar>\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\n</ion-toolbar>\n\n<ion-content [fullscreen]=\"true\">\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\n      <ion-card-header>\n        <ion-card-title>\n          {{country.country}}\n        </ion-card-title>\n      </ion-card-header>\n      <ion-card-content>\n        <ion-icon *ngIf=\"detailCountries.indexOf(country.country) > -1\" (click)='getRegions(country.country)'\n          style=\"float: right; zoom:2.0;\" name=\"chevron-forward-circle\"></ion-icon>\n        <ion-avatar  *ngIf=\"country.flag\" style=\"float: left; margin-right:1em;\" slot=\"start\">\n          <img src=\"../assets/flags-countries/{{country.flag}}.svg\" />\n        </ion-avatar>\n        <ion-label>\n          <p style=\"overflow: hidden;\">\n            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>\n            Active: {{country.active | number}}<br>\n            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n          </p>\n        </ion-label>\n      </ion-card-content>\n      <!-- <ion-label>\n        <h1>{{country.country}}</h1>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-label> -->\n    </ion-card>\n  </ion-list>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      COVID-19 by Country\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-toolbar>\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\n</ion-toolbar>\n\n<ion-content [fullscreen]=\"true\">\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\n      <ion-card-header>\n        <ion-card-title>\n          {{country.country}}\n        </ion-card-title>\n      </ion-card-header>\n      <ion-card-content>\n        <ion-icon *ngIf=\"detailCountries.hasOwnProperty(country.country)\" (click)='getRegions(country.country)'\n            style=\"float: right; zoom:2.0;\" name=\"chevron-forward-circle\"></ion-icon>\n        <ion-avatar  *ngIf=\"country.flag\" style=\"float: left; margin-right:1em;\" slot=\"start\">\n          <img src=\"../assets/flags-countries/{{country.flag}}.svg\" />\n        </ion-avatar>\n        <ion-label>\n          <p style=\"overflow: hidden;\">\n            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>\n            Active: {{country.active | number}}<br>\n            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n          </p>\n        </ion-label>\n      </ion-card-content>\n      <!-- <ion-label>\n        <h1>{{country.country}}</h1>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-label> -->\n    </ion-card>\n  </ion-list>\n</ion-content>");
 
 /***/ }),
 
@@ -100,7 +100,7 @@ let Tab2Page = class Tab2Page {
         this.storage = storage;
         this.navCtrl = navCtrl;
         this.countries = null;
-        this.detailCountries = ["Germany", "India", "Italy", "UK", "USA", "China", "Spain", "Austria"];
+        this.detailCountries = { "Germany": "de", "India": "in", "Italy": "it", "UK": "gb", "USA": "us", "China": "cn", "Spain": "es", "Austria": "at", "Canada": "ca", "Australia": "au" };
     }
     refreshingToast() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -113,31 +113,7 @@ let Tab2Page = class Tab2Page {
         });
     }
     getRegions(country) {
-        let countryCode = '';
-        if (country == 'Germany') {
-            countryCode = 'de';
-        }
-        else if (country == 'India') {
-            countryCode = 'in';
-        }
-        else if (country == 'Italy') {
-            countryCode = 'it';
-        }
-        else if (country == 'UK') {
-            countryCode = 'gb';
-        }
-        else if (country == 'USA') {
-            countryCode = 'us';
-        }
-        else if (country == 'China') {
-            countryCode = 'cn';
-        }
-        else if (country == 'Spain') {
-            countryCode = 'es';
-        }
-        else if (country == 'Austria') {
-            countryCode = 'at';
-        }
+        let countryCode = this.detailCountries[country];
         this.navCtrl.navigateForward(`/regions/${countryCode}`);
     }
     createSubscription() {
