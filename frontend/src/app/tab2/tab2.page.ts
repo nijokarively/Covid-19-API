@@ -13,7 +13,7 @@ export class Tab2Page {
 
   countries: any = null;
   searchCountry: any;
-  detailCountries = {"Germany":"de", "India":"in", "Italy":"it", "UK":"gb", "USA":"us", "China":"cn", "Spain":"es", "Austria":"at", "Canada":"ca"};
+  detailCountries = {"Germany":"de", "India":"in", "Italy":"it", "UK":"gb", "USA":"us", "China":"cn", "Spain":"es", "Austria":"at", "Canada":"ca", "Australia":"au"};
 
   private sub: Subscription;
 

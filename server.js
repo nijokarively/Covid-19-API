@@ -352,44 +352,44 @@ const itRegionsDic = {
 }
 
 const deRegionsDic = {
-  "Baden-Württem­berg" : "bw",
-  "Bayern" : "ba",
-  "Berlin" : "be",
-  "Brandenburg" : "bb",
-  "Bremen" : "br",
-  "Hamburg" : "ha",
-  "Hessen" : "he",
-  "Mecklenburg-Vor­pommern" : "mv",
-  "Niedersachsen" : "ns",
-  "Nordrhein-West­falen" : "nw",
-  "Rhein­land-Pfalz" : "rp",
-  "Saarland" : "sa",
-  "Sachsen" : "sn",
-  "Sachsen-Anhalt" : "st",
-  "Schles­wig-Holstein" : "sh",
-  "Thüringen" : "th"
+  "Baden-Württem­berg": "bw",
+  "Bayern": "ba",
+  "Berlin": "be",
+  "Brandenburg": "bb",
+  "Bremen": "br",
+  "Hamburg": "ha",
+  "Hessen": "he",
+  "Mecklenburg-Vor­pommern": "mv",
+  "Niedersachsen": "ns",
+  "Nordrhein-West­falen": "nw",
+  "Rhein­land-Pfalz": "rp",
+  "Saarland": "sa",
+  "Sachsen": "sn",
+  "Sachsen-Anhalt": "st",
+  "Schles­wig-Holstein": "sh",
+  "Thüringen": "th"
 }
 
 const EsRegionsDic = {
-  "andalucia" : ["Andalucia"],
-  "aragon" : ["Aragon"],
-  "asturias" : ["Asturias"],
-  "baleares" : ["Baleares"],
-  "canarias" : ["Canarias"],
-  "cantabria" : ["Cantabria"],
-  "castilla-la-mancha" : ["Castilla la Mancha"],
-  "castilla-y-leon" : ["Castilla y Leon"],
-  "cataluna" : ["Cataluna"],
-  "ceuta" : ["Ceuta"],
-  "c-valenciana" : ["Comunidad Valenciana"],
-  "extremadura" : ["Extremadura"],
-  "galicia" : ["Galicia"],
-  "madrid" : ["Madrid"],
-  "melilla" : ["Melilla"],
-  "murcia" : ["Murcia"],
-  "navarra" : ["Navarra"],
-  "pais-vasco" : ["Pais Vasco"],
-  "la-rioja" : ["La Rioja"]
+  "andalucia": ["Andalucia"],
+  "aragon": ["Aragon"],
+  "asturias": ["Asturias"],
+  "baleares": ["Baleares"],
+  "canarias": ["Canarias"],
+  "cantabria": ["Cantabria"],
+  "castilla-la-mancha": ["Castilla la Mancha"],
+  "castilla-y-leon": ["Castilla y Leon"],
+  "cataluna": ["Cataluna"],
+  "ceuta": ["Ceuta"],
+  "c-valenciana": ["Comunidad Valenciana"],
+  "extremadura": ["Extremadura"],
+  "galicia": ["Galicia"],
+  "madrid": ["Madrid"],
+  "melilla": ["Melilla"],
+  "murcia": ["Murcia"],
+  "navarra": ["Navarra"],
+  "pais-vasco": ["Pais Vasco"],
+  "la-rioja": ["La Rioja"]
 }
 
 var getall = setInterval(async () => {
@@ -626,6 +626,70 @@ var getRegionsCn = setInterval(async () => {
   db.set("cn", result);
   console.log("CN data refreshed", result);
 }, 150000);
+
+
+var getRegionsCa = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://covid-api.com/api/reports?iso=can");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
+
+  // to store parsed data
+  const result = [];
+  let responseData = response.data.data;
+
+  let exclusionList = ["Recovered", "Diamond Princess", "Grand Princess"];
+
+  for (var i = 0; i < responseData.length; i++) {
+    let regionName = responseData[i].region.province;
+    // let flag = "flag-de-" + deRegionsDic[regionName];
+
+    if (!exclusionList.includes(regionName)) {
+      let region = { "region": regionName, "cases": responseData[i].confirmed || 0, "deaths": responseData[i].deaths || 0, "recovered": responseData[i].recovered || 0, "active": responseData[i].active || 0 };
+      result.push(region);
+    }
+  }
+
+  db.set("ca", result);
+  console.log("CA data refreshed", result);
+}, 150000);
+
+var getRegionsAu = setInterval(async () => {
+  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  let response;
+  try {
+    response = await axios.get("https://covid-api.com/api/reports?iso=aus");
+    if (response.status !== 200) {
+      console.log("ERROR");
+    }
+  } catch (err) {
+    return null;
+  }
+
+  // to store parsed data
+  const result = [];
+  let responseData = response.data.data;
+
+
+  for (var i = 0; i < responseData.length; i++) {
+    let regionName = responseData[i].region.province;
+    // let flag = "flag-de-" + deRegionsDic[regionName];
+
+    let region = { "region": regionName, "cases": responseData[i].confirmed || 0, "deaths": responseData[i].deaths || 0, "recovered": responseData[i].recovered || 0, "active": responseData[i].active || 0 };
+    result.push(region);
+
+  }
+
+  db.set("au", result);
+  console.log("AU data refreshed", result);
+}, 150000);
+
 
 var getRegionsAt = setInterval(async () => {
   var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
@@ -874,5 +938,15 @@ app.get("/regions/es/", async function (req, res) {
 
 app.get("/regions/cn/", async function (req, res) {
   let regions = await db.fetch("cn");
+  res.send(regions);
+});
+
+app.get("/regions/ca/", async function (req, res) {
+  let regions = await db.fetch("ca");
+  res.send(regions);
+});
+
+app.get("/regions/au/", async function (req, res) {
+  let regions = await db.fetch("au");
   res.send(regions);
 });
