@@ -100,7 +100,7 @@ let Tab2Page = class Tab2Page {
         this.storage = storage;
         this.navCtrl = navCtrl;
         this.countries = null;
-        this.detailCountries = { "Germany": "de", "India": "in", "Italy": "it", "UK": "gb", "USA": "us", "China": "cn", "Spain": "es", "Austria": "at", "Canada": "ca", "Australia": "au" };
+        this.detailCountries = { "Germany": "de", "India": "in", "Italy": "it", "UK": "gb", "USA": "us", "China": "cn", "Spain": "es", "Austria": "at", "Canada": "ca", "Australia": "au", "Denmark": "dk" };
     }
     refreshingToast() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
