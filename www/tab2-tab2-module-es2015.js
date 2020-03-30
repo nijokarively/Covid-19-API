@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      COVID-19 by Country\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-toolbar>\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\n</ion-toolbar>\n\n<ion-content [fullscreen]=\"true\">\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\n      <ion-card-header>\n        <ion-card-title>\n          {{country.country}}\n        </ion-card-title>\n      </ion-card-header>\n      <ion-card-content>\n        <ion-icon *ngIf=\"detailCountries.hasOwnProperty(country.country)\" (click)='getRegions(country.country)'\n            style=\"float: right; zoom:2.0;\" name=\"chevron-forward-circle\"></ion-icon>\n        <ion-avatar  *ngIf=\"country.flag\" style=\"float: left; margin-right:1em;\" slot=\"start\">\n          <img src=\"../assets/flags-countries/{{country.flag}}.svg\" />\n        </ion-avatar>\n        <ion-label>\n          <p style=\"overflow: hidden;\">\n            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>\n            Active: {{country.active | number}}<br>\n            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n          </p>\n        </ion-label>\n      </ion-card-content>\n      <!-- <ion-label>\n        <h1>{{country.country}}</h1>\n        <p>\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\n        </p>\n      </ion-label> -->\n    </ion-card>\n  </ion-list>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-title>\r\n      COVID-19 by Country\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-toolbar>\r\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\r\n</ion-toolbar>\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\r\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\r\n      <ion-card-header>\r\n        <ion-card-title>\r\n          {{country.country}}\r\n        </ion-card-title>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <ion-icon *ngIf=\"detailCountries.hasOwnProperty(country.country)\" (click)='getRegions(country.country)'\r\n          style=\"float: right; zoom:2.0;\" name=\"chevron-forward-circle\"></ion-icon>\r\n        <ion-avatar *ngIf=\"country.flag\" style=\"float: left; margin-right:1em;\" slot=\"start\">\r\n          <img src=\"../assets/flags-countries/{{country.flag}}.svg\" />\r\n        </ion-avatar>\r\n        <ion-label (click)=\"getHistoricalData(country.country)\">\r\n          <p style=\"overflow: hidden;\">\r\n            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>\r\n            Active: {{country.active | number}}<br>\r\n            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\r\n            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\r\n          </p>\r\n        </ion-label>\r\n      </ion-card-content>\r\n      <!-- <ion-label>\r\n        <h1>{{country.country}}</h1>\r\n        <p>\r\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\r\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\r\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\r\n        </p>\r\n      </ion-label> -->\r\n    </ion-card>\r\n  </ion-list>\r\n</ion-content>");
 
 /***/ }),
 
@@ -67,7 +67,7 @@ Tab2PageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("ion-content ion-toolbar {\n  --background: translucent;\n}\n\nion-card {\n  margin-bottom: 0px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFiMi9DOlxcVXNlcnNcXE5pam9cXFByb2plY3RzXFxDb3ZpZC0xOS1BUElcXGZyb250ZW5kL3NyY1xcYXBwXFx0YWIyXFx0YWIyLnBhZ2Uuc2NzcyIsInNyYy9hcHAvdGFiMi90YWIyLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHlCQUFBO0FDQ0Y7O0FERUE7RUFDRSw2QkFBQTtBQ0NGIiwiZmlsZSI6InNyYy9hcHAvdGFiMi90YWIyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jb250ZW50IGlvbi10b29sYmFyIHtcbiAgLS1iYWNrZ3JvdW5kOiB0cmFuc2x1Y2VudDtcbn1cblxuaW9uLWNhcmR7XG4gIG1hcmdpbi1ib3R0b206IDBweCAhaW1wb3J0YW50O1xufSIsImlvbi1jb250ZW50IGlvbi10b29sYmFyIHtcbiAgLS1iYWNrZ3JvdW5kOiB0cmFuc2x1Y2VudDtcbn1cblxuaW9uLWNhcmQge1xuICBtYXJnaW4tYm90dG9tOiAwcHggIWltcG9ydGFudDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-content ion-toolbar {\n  --background: translucent;\n}\n\nion-card {\n  margin-bottom: 0px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFiMi9DOlxcVXNlcnNcXE5pam9cXFByb2plY3RzXFxDb3ZpZC0xOS1BUElcXGZyb250ZW5kL3NyY1xcYXBwXFx0YWIyXFx0YWIyLnBhZ2Uuc2NzcyIsInNyYy9hcHAvdGFiMi90YWIyLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHlCQUFBO0FDQ0Y7O0FERUE7RUFDRSw2QkFBQTtBQ0NGIiwiZmlsZSI6InNyYy9hcHAvdGFiMi90YWIyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jb250ZW50IGlvbi10b29sYmFyIHtcclxuICAtLWJhY2tncm91bmQ6IHRyYW5zbHVjZW50O1xyXG59XHJcblxyXG5pb24tY2FyZHtcclxuICBtYXJnaW4tYm90dG9tOiAwcHggIWltcG9ydGFudDtcclxufSIsImlvbi1jb250ZW50IGlvbi10b29sYmFyIHtcbiAgLS1iYWNrZ3JvdW5kOiB0cmFuc2x1Y2VudDtcbn1cblxuaW9uLWNhcmQge1xuICBtYXJnaW4tYm90dG9tOiAwcHggIWltcG9ydGFudDtcbn0iXX0= */");
 
 /***/ }),
 
@@ -100,7 +100,9 @@ let Tab2Page = class Tab2Page {
         this.storage = storage;
         this.navCtrl = navCtrl;
         this.countries = null;
+        this.historical = null;
         this.detailCountries = { "Germany": "de", "India": "in", "Italy": "it", "UK": "gb", "USA": "us", "China": "cn", "Spain": "es", "Austria": "at", "Canada": "ca", "Australia": "au", "Denmark": "dk" };
+        this.countryNameFix = { "USA": "US", "UK": "United Kingdom", "S. Korea": "Korea, South", "UAE": "United Arab Emirates", "Taiwan": "Taiwan*", "Ivory Coast": "Cote d'Ivoire", "DRC": "Congo (Kinshasa)", "Congo": "Congo (Brazzaville)" };
     }
     refreshingToast() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -115,6 +117,14 @@ let Tab2Page = class Tab2Page {
     getRegions(country) {
         let countryCode = this.detailCountries[country];
         this.navCtrl.navigateForward(`/regions/${countryCode}`);
+    }
+    getHistoricalData(country) {
+        let countryName = this.countryNameFix[country] || country;
+        let countryTimeSeries = this.historical[countryName];
+        if (countryTimeSeries) {
+            console.log(countryTimeSeries);
+        }
+        //this.navCtrl.navigateForward(`/regions/${countryCode}`);
     }
     createSubscription() {
         this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["interval"])(300000).subscribe((val) => {
@@ -134,6 +144,17 @@ let Tab2Page = class Tab2Page {
             else {
                 this.storage.get('countries').then((val) => {
                     this.countries = val;
+                });
+            }
+        });
+        this.covidService.getTimeSeries().subscribe((data) => {
+            if (data) {
+                this.historical = data;
+                this.storage.set('historical', data);
+            }
+            else {
+                this.storage.get('historical').then((val) => {
+                    this.historical = val;
                 });
             }
         });

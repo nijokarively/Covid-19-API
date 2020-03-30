@@ -12,8 +12,10 @@ import { CovidService } from '../covid.service';
 export class Tab2Page {
 
   countries: any = null;
+  historical: any = null;
   searchCountry: any;
-  detailCountries = {"Germany":"de", "India":"in", "Italy":"it", "UK":"gb", "USA":"us", "China":"cn", "Spain":"es", "Austria":"at", "Canada":"ca", "Australia":"au", "Denmark" : "dk"};
+  detailCountries = { "Germany": "de", "India": "in", "Italy": "it", "UK": "gb", "USA": "us", "China": "cn", "Spain": "es", "Austria": "at", "Canada": "ca", "Australia": "au", "Denmark": "dk" };
+  countryNameFix = { "USA": "US", "UK": "United Kingdom", "S. Korea": "Korea, South", "UAE": "United Arab Emirates", "Taiwan": "Taiwan*", "Ivory Coast": "Cote d'Ivoire", "DRC": "Congo (Kinshasa)", "Congo": "Congo (Brazzaville)" };
 
   private sub: Subscription;
 
@@ -31,6 +33,15 @@ export class Tab2Page {
   getRegions(country) {
     let countryCode = this.detailCountries[country];
     this.navCtrl.navigateForward(`/regions/${countryCode}`);
+  }
+
+  getHistoricalData(country) {
+    let countryName = this.countryNameFix[country] || country;
+    let countryTimeSeries = this.historical[countryName];
+    if (countryTimeSeries) {
+      console.log(countryTimeSeries);
+    }
+    //this.navCtrl.navigateForward(`/regions/${countryCode}`);
   }
 
   createSubscription() {
@@ -52,6 +63,17 @@ export class Tab2Page {
       } else {
         this.storage.get('countries').then((val) => {
           this.countries = val;
+        });
+      }
+    });
+
+    this.covidService.getTimeSeries().subscribe((data) => {
+      if (data) {
+        this.historical = data;
+        this.storage.set('historical', data);
+      } else {
+        this.storage.get('historical').then((val) => {
+          this.historical = val;
         });
       }
     });
