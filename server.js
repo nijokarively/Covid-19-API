@@ -260,9 +260,9 @@ const countryIso2Dic = {
   "YEMEN": "YE",
   "ZAMBIA": "ZM",
   "ZIMBABWE": "ZW",
-  "DIAMOND PRINCESS": "GB",
+  "DIAMOND PRINCESS": "DP",
   "CHANNEL ISLANDS": "GB",
-  "MS ZAANDAM": "NL"
+  "MS ZAANDAM": "MSZ"
 }
 
 const usStatesDic = {
@@ -482,6 +482,7 @@ var getcountries = setInterval(async () => {
       result.push({ country: country.trim() || "" });
       let isoCode = countryIso2Dic[country.trim().toUpperCase()] || "";
       result[result.length - 1].flag = 'flag-' + isoCode.toLowerCase();
+      result[result.length - 1].isoCode = isoCode.toLowerCase();
     }
     // get cases
     if (i % totalColumns === casesColIndex) {
