@@ -392,6 +392,8 @@ const EsRegionsDic = {
   "la-rioja": ["La Rioja"]
 }
 
+const detailCountries = ["Germany","India","Italy","UK","USA","China","Spain","Austria","Canada","Australia","Denmark"];
+
 var getall = setInterval(async () => {
   let response;
   try {
@@ -483,6 +485,7 @@ var getcountries = setInterval(async () => {
       let isoCode = countryIso2Dic[country.trim().toUpperCase()] || "";
       result[result.length - 1].flag = 'flag-' + isoCode.toLowerCase();
       result[result.length - 1].isoCode = isoCode.toLowerCase();
+      result[result.length - 1].hasRegionalData = detailCountries.includes(country.trim());
     }
     // get cases
     if (i % totalColumns === casesColIndex) {
