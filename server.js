@@ -572,7 +572,6 @@ var getcountries = setInterval(async () => {
 }, 150000);
 
 var getGlobalTimeSeries = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://pomber.github.io/covid19/timeseries.json");

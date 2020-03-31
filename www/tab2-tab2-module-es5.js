@@ -225,10 +225,30 @@
 
       getHistoricalData(country) {
         let countryName = this.countryNameFix[country] || country;
+        let tCases = [],
+            tDeaths = [],
+            tRecovered = [];
         let countryTimeSeries = this.historical[countryName];
 
         if (countryTimeSeries) {
-          console.log(countryTimeSeries);
+          for (let i = 0; i < countryTimeSeries.length; i++) {
+            tCases.push({
+              'date': countryTimeSeries[i]['date'],
+              'confirmed': countryTimeSeries[i]['confirmed']
+            });
+            tDeaths.push({
+              'date': countryTimeSeries[i]['date'],
+              'deaths': countryTimeSeries[i]['deaths']
+            });
+            tRecovered.push({
+              'date': countryTimeSeries[i]['date'],
+              'recovered': countryTimeSeries[i]['recovered']
+            });
+          }
+
+          console.log(tCases);
+          console.log(tDeaths);
+          console.log(tRecovered);
         } //this.navCtrl.navigateForward(`/regions/${countryCode}`);
 
       }
