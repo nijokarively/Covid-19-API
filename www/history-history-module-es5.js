@@ -34341,7 +34341,6 @@
             labels: this.tDates,
             datasets: [{
               label: 'Cases',
-              fill: false,
               pointRadius: 0,
               data: this.tCases,
               backgroundColor: 'rgb(25,118,210)',
@@ -34379,7 +34378,6 @@
             labels: this.tDates,
             datasets: [{
               label: 'Deaths',
-              fill: false,
               pointRadius: 0,
               data: this.tDeaths,
               backgroundColor: 'rgb(211,47,47)',
@@ -34417,7 +34415,6 @@
             labels: this.tDates,
             datasets: [{
               label: 'Recoveries',
-              fill: false,
               pointRadius: 0,
               data: this.tRecovered,
               backgroundColor: 'rgb(56,142,60)',
