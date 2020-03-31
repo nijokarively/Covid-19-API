@@ -974,14 +974,14 @@ app.get("/timeseries/:countryIso", async function (req, res) {
   res.send(timeSeries[req.params.countryIso]);
 });
 
-app.get("/countries/:country", async function (req, res) {
+app.get("/countries/", async function (req, res) {
   let countries = await db.fetch("countries");
   res.send(countries);
 });
 
-app.get("/countries/:country/", async function (req, res) {
+app.get("/countries/:countryIso/", async function (req, res) {
   let countries = await db.fetch("countries");
-  res.send(countries);
+  res.send(countries[req.params.countryIso]);
 });
 
 app.get("/regions/us/", async function (req, res) {
