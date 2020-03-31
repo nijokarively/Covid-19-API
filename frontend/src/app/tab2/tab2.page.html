@@ -24,12 +24,12 @@
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-icon *ngIf="detailCountries.hasOwnProperty(country.country)" (click)='getRegions(country.country)'
+        <ion-icon *ngIf="country.hasRegionalData" (click)='getRegions(country.isoCode)'
           style="float: right; zoom:2.0;" name="chevron-forward-circle"></ion-icon>
         <ion-avatar *ngIf="country.flag" style="float: left; margin-right:1em;" slot="start">
           <img src="../assets/flags-countries/{{country.flag}}.svg" />
         </ion-avatar>
-        <ion-label (click)="getHistoricalData(country.country)">
+        <ion-label (click)="getHistoricalData(country.isoCode)">
           <p style="overflow: hidden;">
             Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>
             Active: {{country.active | number}}<br>

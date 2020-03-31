@@ -176,11 +176,11 @@
         this.info = null;
       }
 
-      refreshingToast() {
+      createToast(msg) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-          console.log('Refreshing...');
+          console.log(msg);
           const toast = yield this.toastController.create({
-            message: 'Refreshing...',
+            message: msg,
             duration: 2000
           });
           toast.present();
@@ -189,7 +189,7 @@
 
       createSubscription() {
         this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["interval"])(300000).subscribe(val => {
-          this.refreshingToast();
+          this.createToast('Refreshing...');
           this.getData();
         });
       }
@@ -221,7 +221,7 @@
       }
 
       doRefresh(event) {
-        this.refreshingToast();
+        this.createToast('Refreshing...');
         this.getData();
         setTimeout(() => {
           console.log('Async operation has ended');

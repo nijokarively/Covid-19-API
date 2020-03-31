@@ -55,6 +55,16 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'history/:id',
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+        import('../history/history.module').then( m => m.HistoryPageModule)
+      }
+    ]
+  },
+  {
     path: '',
     redirectTo: '/tabs/tab1',
     pathMatch: 'full'

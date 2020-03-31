@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-title>\r\n      COVID-19 by Country\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-toolbar>\r\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\r\n</ion-toolbar>\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\r\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\r\n      <ion-card-header>\r\n        <ion-card-title>\r\n          {{country.country}}\r\n        </ion-card-title>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <ion-icon *ngIf=\"detailCountries.hasOwnProperty(country.country)\" (click)='getRegions(country.country)'\r\n          style=\"float: right; zoom:2.0;\" name=\"chevron-forward-circle\"></ion-icon>\r\n        <ion-avatar *ngIf=\"country.flag\" style=\"float: left; margin-right:1em;\" slot=\"start\">\r\n          <img src=\"../assets/flags-countries/{{country.flag}}.svg\" />\r\n        </ion-avatar>\r\n        <ion-label (click)=\"getHistoricalData(country.country)\">\r\n          <p style=\"overflow: hidden;\">\r\n            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>\r\n            Active: {{country.active | number}}<br>\r\n            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\r\n            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\r\n          </p>\r\n        </ion-label>\r\n      </ion-card-content>\r\n      <!-- <ion-label>\r\n        <h1>{{country.country}}</h1>\r\n        <p>\r\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\r\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\r\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\r\n        </p>\r\n      </ion-label> -->\r\n    </ion-card>\r\n  </ion-list>\r\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-title>\r\n      COVID-19 by Country\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-toolbar>\r\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\r\n</ion-toolbar>\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\r\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\r\n      <ion-card-header>\r\n        <ion-card-title>\r\n          {{country.country}}\r\n        </ion-card-title>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <ion-icon *ngIf=\"country.hasRegionalData\" (click)='getRegions(country.isoCode)'\r\n          style=\"float: right; zoom:2.0;\" name=\"chevron-forward-circle\"></ion-icon>\r\n        <ion-avatar *ngIf=\"country.flag\" style=\"float: left; margin-right:1em;\" slot=\"start\">\r\n          <img src=\"../assets/flags-countries/{{country.flag}}.svg\" />\r\n        </ion-avatar>\r\n        <ion-label (click)=\"getHistoricalData(country.isoCode)\">\r\n          <p style=\"overflow: hidden;\">\r\n            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>\r\n            Active: {{country.active | number}}<br>\r\n            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\r\n            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\r\n          </p>\r\n        </ion-label>\r\n      </ion-card-content>\r\n      <!-- <ion-label>\r\n        <h1>{{country.country}}</h1>\r\n        <p>\r\n          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>\r\n          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\r\n          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}\r\n        </p>\r\n      </ion-label> -->\r\n    </ion-card>\r\n  </ion-list>\r\n</ion-content>");
 
 /***/ }),
 
@@ -101,42 +101,29 @@ let Tab2Page = class Tab2Page {
         this.navCtrl = navCtrl;
         this.countries = null;
         this.historical = null;
-        this.detailCountries = { "Germany": "de", "India": "in", "Italy": "it", "UK": "gb", "USA": "us", "China": "cn", "Spain": "es", "Austria": "at", "Canada": "ca", "Australia": "au", "Denmark": "dk" };
-        this.countryNameFix = { "USA": "US", "UK": "United Kingdom", "S. Korea": "Korea, South", "UAE": "United Arab Emirates", "Taiwan": "Taiwan*", "Ivory Coast": "Cote d'Ivoire", "DRC": "Congo (Kinshasa)", "Congo": "Congo (Brazzaville)" };
     }
-    refreshingToast() {
+    createToast(msg) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            console.log('Refreshing...');
+            console.log(msg);
             const toast = yield this.toastController.create({
-                message: 'Refreshing...',
+                message: msg,
                 duration: 2000
             });
             toast.present();
         });
     }
-    getRegions(country) {
-        let countryCode = this.detailCountries[country];
+    getRegions(countryCode) {
         this.navCtrl.navigateForward(`/regions/${countryCode}`);
     }
-    getHistoricalData(country) {
-        let countryName = this.countryNameFix[country] || country;
-        let tCases = [], tDeaths = [], tRecovered = [];
-        let countryTimeSeries = this.historical[countryName];
+    getHistoricalData(countryCode) {
+        let countryTimeSeries = this.historical[countryCode];
         if (countryTimeSeries) {
-            for (let i = 0; i < countryTimeSeries.length; i++) {
-                tCases.push({ 'date': countryTimeSeries[i]['date'], 'confirmed': countryTimeSeries[i]['confirmed'] });
-                tDeaths.push({ 'date': countryTimeSeries[i]['date'], 'deaths': countryTimeSeries[i]['deaths'] });
-                tRecovered.push({ 'date': countryTimeSeries[i]['date'], 'recovered': countryTimeSeries[i]['recovered'] });
-            }
-            console.log(tCases);
-            console.log(tDeaths);
-            console.log(tRecovered);
+            this.navCtrl.navigateForward(`/history/${countryCode}`);
         }
-        //this.navCtrl.navigateForward(`/regions/${countryCode}`);
     }
     createSubscription() {
         this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["interval"])(300000).subscribe((val) => {
-            this.refreshingToast();
+            this.createToast('Refreshing...');
             this.getData();
         });
     }
@@ -175,7 +162,7 @@ let Tab2Page = class Tab2Page {
         this.deleteSubscription();
     }
     doRefresh(event) {
-        this.refreshingToast();
+        this.createToast('Refreshing...');
         this.getData();
         setTimeout(() => {
             console.log('Async operation has ended');
