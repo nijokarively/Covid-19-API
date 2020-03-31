@@ -263,8 +263,8 @@ const countryIso2Dic = {
   "DIAMOND PRINCESS": "DP",
   "CHANNEL ISLANDS": "GB",
   "MS ZAANDAM": "MSZ",
-  "KOSOVO": "RKS"
-}
+  "KOSOVO": "RKS",
+};
 
 const countryNameFix = {
   "US": "USA",
@@ -279,7 +279,7 @@ const countryNameFix = {
   "Holy See" : "Vatican City",
   "Saint Vincent and the Grenadines" : "St. Vincent Grenadines",
   "West Bank and Gaza" : "Palestine",
-  "Burma" : "Myanmar"
+  "Burma" : "Myanmar",
 };
 
 const usStatesDic = {
@@ -341,15 +341,15 @@ const usStatesDic = {
   "WA": "Washington",
   "WV": "West Virginia",
   "WI": "Wisconsin",
-  "WY": "Wyoming"
-}
+  "WY": "Wyoming",
+};
 
 const itRegionsDic = {
   "ABRUZZO": "AB",
   "BASILICATA": "BA",
   "CALABRIA": "CB",
   "CAMPANIA": "CA",
-  "EMILIA ROMAGNA": "ER",
+  "EMILIA-ROMAGNA": "ER",
   "FRIULI VENEZIA GIULIA": "FG",
   "LAZIO": "LA",
   "LIGURIA": "LI",
@@ -365,8 +365,8 @@ const itRegionsDic = {
   "VALLE D'AOSTA": "AO",
   "VENETO": "VE",
   "P.A. TRENTO": "TR",
-  "P.A. BOLZANO": "TR"
-}
+  "P.A. BOLZANO": "TR",
+};
 
 const deRegionsDic = {
   "Baden-Württem­berg": "bw",
@@ -384,8 +384,8 @@ const deRegionsDic = {
   "Sachsen": "sn",
   "Sachsen-Anhalt": "st",
   "Schles­wig-Holstein": "sh",
-  "Thüringen": "th"
-}
+  "Thüringen": "th",
+};
 
 const EsRegionsDic = {
   "andalucia": ["Andalucia"],
@@ -406,8 +406,8 @@ const EsRegionsDic = {
   "murcia": ["Murcia"],
   "navarra": ["Navarra"],
   "pais-vasco": ["Pais Vasco"],
-  "la-rioja": ["La Rioja"]
-}
+  "la-rioja": ["La Rioja"],
+};
 
 const detailCountries = ["Germany", "India", "Italy", "UK", "USA", "China", "Spain", "Austria", "Canada", "Australia", "Denmark"];
 
@@ -441,7 +441,7 @@ var getall = setInterval(async () => {
   });
 
   db.set("all", result);
-  console.log("Global data refreshed", result);
+  console.log("Global data refreshed");
 }, 150000);
 
 var getcountries = setInterval(async () => {
@@ -589,7 +589,7 @@ var getcountries = setInterval(async () => {
   });
 
   db.set("countries", sortedResult);
-  console.log("Countries data refreshed", sortedResult);
+  console.log("Countries data refreshed");
 }, 150000);
 
 var getGlobalTimeSeries = setInterval(async () => {
@@ -614,7 +614,7 @@ var getGlobalTimeSeries = setInterval(async () => {
   }
 
   db.set("timeseries", result);
-  console.log("Time-Series data refreshed", result);
+  console.log("Time-Series data refreshed");
 }, 150000);
 
 var getRegionsEs = setInterval(async () => {
@@ -641,7 +641,7 @@ var getRegionsEs = setInterval(async () => {
   }
 
   db.set("es", result);
-  console.log("ES data refreshed", result);
+  console.log("ES data refreshed");
 }, 150000);
 
 
@@ -669,7 +669,7 @@ var getRegionsCn = setInterval(async () => {
   }
 
   db.set("cn", result);
-  console.log("CN data refreshed", result);
+  console.log("CN data refreshed");
 }, 150000);
 
 
@@ -701,7 +701,7 @@ var getRegionsCa = setInterval(async () => {
   }
 
   db.set("ca", result);
-  console.log("CA data refreshed", result);
+  console.log("CA data refreshed");
 }, 150000);
 
 var getRegionsAu = setInterval(async () => {
@@ -730,7 +730,7 @@ var getRegionsAu = setInterval(async () => {
   }
 
   db.set("au", result);
-  console.log("AU data refreshed", result);
+  console.log("AU data refreshed");
 }, 150000);
 
 
@@ -758,7 +758,7 @@ var getRegionsAt = setInterval(async () => {
   }
 
   db.set("at", result);
-  console.log("AT data refreshed", result);
+  console.log("AT data refreshed");
 }, 150000);
 
 var getRegionsDk = setInterval(async () => {
@@ -785,7 +785,7 @@ var getRegionsDk = setInterval(async () => {
   }
 
   db.set("dk", result);
-  console.log("DK data refreshed", result);
+  console.log("DK data refreshed");
 }, 150000);
 
 var getRegionsDe = setInterval(async () => {
@@ -812,7 +812,7 @@ var getRegionsDe = setInterval(async () => {
   }
 
   db.set("de", result);
-  console.log("DE data refreshed", result);
+  console.log("DE data refreshed");
 }, 150000);
 
 var getRegionsIn = setInterval(async () => {
@@ -837,7 +837,7 @@ var getRegionsIn = setInterval(async () => {
   }
 
   db.set("in", result);
-  console.log("IN data refreshed", result);
+  console.log("IN data refreshed");
 }, 150000);
 
 var getRegionsIt = setInterval(async () => {
@@ -856,14 +856,15 @@ var getRegionsIt = setInterval(async () => {
 
   for (var i = 0; i < response.data.length; i++) {
     let regionName = response.data[i].denominazione_regione;
-    let flag = itRegionsDic[regionName.toUpperCase()];
-    let region = { "region": response.data[i].denominazione_regione, "flag": "flag-it-" + flag.toLowerCase(), "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0 };
+    let regionCode = itRegionsDic[regionName.toUpperCase()];
+     let flag = "flag-it-" + regionCode.toLowerCase();
+    let region = { "region": response.data[i].denominazione_regione, "flag": flag, "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0 };
 
     result.push(region);
   }
 
   db.set("it", result);
-  console.log("IT data refreshed", result);
+  console.log("IT data refreshed");
 }, 150000);
 
 
@@ -883,13 +884,19 @@ var getRegionsGb = setInterval(async () => {
   let responseData = JSON.parse(response.data.data[0].area);
 
   for (var i = 0; i < responseData.length; i++) {
-    let region = { "region": responseData[i].location, "cases": responseData[i].number || 0 };
+    let region = { "region": responseData[i].location.trim(), "cases": parseInt(responseData[i].number) || 0 };
 
     result.push(region);
   }
 
-  db.set("gb", result);
-  console.log("GB data refreshed", result);
+  let sortedResult = result.sort(function(a, b){
+    if(a.region < b.region) { return -1; }
+    if(a.region > b.region) { return 1; }
+    return 0;
+  });
+
+  db.set("gb", sortedResult);
+  console.log("GB data refreshed");
 }, 150000);
 
 var getRegionsUsa = setInterval(async () => {
@@ -938,7 +945,7 @@ var getRegionsUsa = setInterval(async () => {
   }
 
   db.set("us", result);
-  console.log("US data refreshed", result);
+  console.log("US data refreshed");
 }, 150000);
 
 app.get("/", async function (request, response) {
