@@ -416,7 +416,7 @@ var getall = setInterval(async () => {
   try {
     response = await axios.get("https://www.worldometers.info/coronavirus/");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getall()");
     }
   } catch (err) {
     return null;
@@ -444,12 +444,12 @@ var getall = setInterval(async () => {
   console.log("Global data refreshed");
 }, 150000);
 
-var getcountries = setInterval(async () => {
+var getCountries = setInterval(async () => {
   let response;
   try {
     response = await axios.get("https://www.worldometers.info/coronavirus/");
     if (response.status !== 200) {
-      console.log("Error", response.status);
+      console.log("ERROR getCountries(): ", response.status);
     }
   } catch (err) {
     return null;
@@ -597,7 +597,7 @@ var getGlobalTimeSeries = setInterval(async () => {
   try {
     response = await axios.get("https://pomber.github.io/covid19/timeseries.json");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR getGlobalTimeSeries()");
     }
   } catch (err) {
     return null;
@@ -622,7 +622,7 @@ var getRegionsEs = setInterval(async () => {
   try {
     response = await axios.get("https://covid-19-spain-api.herokuapp.com/reports");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsEs()");
     }
   } catch (err) {
     return null;
@@ -650,7 +650,7 @@ var getRegionsCn = setInterval(async () => {
   try {
     response = await axios.get("https://covid-api.com/api/reports?iso=chn");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsCn()");
     }
   } catch (err) {
     return null;
@@ -678,7 +678,7 @@ var getRegionsCa = setInterval(async () => {
   try {
     response = await axios.get("https://covid-api.com/api/reports?iso=can");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsCa()");
     }
   } catch (err) {
     return null;
@@ -709,7 +709,7 @@ var getRegionsAu = setInterval(async () => {
   try {
     response = await axios.get("https://covid-api.com/api/reports?iso=aus");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsAu()");
     }
   } catch (err) {
     return null;
@@ -739,7 +739,7 @@ var getRegionsAt = setInterval(async () => {
   try {
     response = await axios.get("https://covid19.spiessknafl.at/covid19/api/bundesland");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsAt()");
     }
   } catch (err) {
     return null;
@@ -766,7 +766,7 @@ var getRegionsDk = setInterval(async () => {
   try {
     response = await axios.get("https://covid-api.com/api/reports?iso=dnk");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsDk()");
     }
   } catch (err) {
     return null;
@@ -793,7 +793,7 @@ var getRegionsDe = setInterval(async () => {
   try {
     response = await axios.get("https://rki-covid-api.now.sh/api/states");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsDe()");
     }
   } catch (err) {
     return null;
@@ -820,7 +820,7 @@ var getRegionsIn = setInterval(async () => {
   try {
     response = await axios.get("https://api.rootnet.in/covid19-in/stats/latest");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsIn()");
     }
   } catch (err) {
     return null;
@@ -845,7 +845,7 @@ var getRegionsIt = setInterval(async () => {
   try {
     response = await axios.get("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni-latest.json");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsIt()");
     }
   } catch (err) {
     return null;
@@ -873,7 +873,7 @@ var getRegionsGb = setInterval(async () => {
   try {
     response = await axios.get("https://api.covid19uk.live/");
     if (response.status !== 200) {
-      console.log("ERROR");
+      console.log("ERROR: getRegionsGb()");
     }
   } catch (err) {
     return null;
@@ -912,7 +912,7 @@ var getRegionsUsa = setInterval(async () => {
       requestTwo = axios.get("https://covidtracking.com/api/states/daily?date=" + yesterday);
       response = await axios.all([requestOne, requestTwo]);
       if (response.status !== 200) {
-        console.log("ERROR");
+        console.log("ERROR: getRegionsUsa()");
       }
     }
     responseOne = response[0].data.sort(function (a, b) {
@@ -969,7 +969,12 @@ app.get("/timeseries/", async function (req, res) {
   res.send(timeSeries);
 });
 
-app.get("/countries/", async function (req, res) {
+app.get("/timeseries/:countryIso", async function (req, res) {
+  let timeSeries = await db.fetch("timeseries");
+  res.send(timeSeries[req.params.countryIso]);
+});
+
+app.get("/countries/:country", async function (req, res) {
   let countries = await db.fetch("countries");
   res.send(countries);
 });
