@@ -262,8 +262,25 @@ const countryIso2Dic = {
   "ZIMBABWE": "ZW",
   "DIAMOND PRINCESS": "DP",
   "CHANNEL ISLANDS": "GB",
-  "MS ZAANDAM": "MSZ"
+  "MS ZAANDAM": "MSZ",
+  "KOSOVO": "RKS"
 }
+
+const countryNameFix = {
+  "US": "USA",
+  "United Kingdom": "UK",
+  "Korea, South": "S. Korea",
+  "United Arab Emirates": "UAE",
+  "Taiwan*": "Taiwan",
+  "Cote d'Ivoire": "Ivory Coast",
+  "Congo (Kinshasa)": "DRC",
+  "Congo (Brazzaville)": "Congo",
+  "Central African Republic" : "CAR",
+  "Holy See" : "Vatican City",
+  "Saint Vincent and the Grenadines" : "St. Vincent Grenadines",
+  "West Bank and Gaza" : "Palestine",
+  "Burma" : "Myanmar"
+};
 
 const usStatesDic = {
   "AL": "Alabama",
@@ -392,7 +409,7 @@ const EsRegionsDic = {
   "la-rioja": ["La Rioja"]
 }
 
-const detailCountries = ["Germany","India","Italy","UK","USA","China","Spain","Austria","Canada","Australia","Denmark"];
+const detailCountries = ["Germany", "India", "Italy", "UK", "USA", "China", "Spain", "Austria", "Canada", "Australia", "Denmark"];
 
 var getall = setInterval(async () => {
   let response;
@@ -559,7 +576,7 @@ var getcountries = setInterval(async () => {
         10
       );
     }
-    // get total deaths per one million population
+    // get first case
     if (i % totalColumns === firstCaseColIndex) {
       let firstCase = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].firstCase = firstCase.trim().replace(/,/g, "") || "";
@@ -587,14 +604,20 @@ var getGlobalTimeSeries = setInterval(async () => {
   }
 
   // to store parsed data
-  const result = response.data;
+  const entries = Object.entries(response.data);
+  let result = {};
+  for (const [country, data] of entries) {
+    let countryName = countryNameFix[country] || country;
+    let isoCodeUpper = countryIso2Dic[countryName.toUpperCase()];
+    let isoCode = isoCodeUpper.toLowerCase();
+    result[isoCode] = data;
+  }
 
   db.set("timeseries", result);
   console.log("Time-Series data refreshed", result);
 }, 150000);
 
 var getRegionsEs = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://covid-19-spain-api.herokuapp.com/reports");
@@ -623,7 +646,6 @@ var getRegionsEs = setInterval(async () => {
 
 
 var getRegionsCn = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://covid-api.com/api/reports?iso=chn");
@@ -652,7 +674,6 @@ var getRegionsCn = setInterval(async () => {
 
 
 var getRegionsCa = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://covid-api.com/api/reports?iso=can");
@@ -684,7 +705,6 @@ var getRegionsCa = setInterval(async () => {
 }, 150000);
 
 var getRegionsAu = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://covid-api.com/api/reports?iso=aus");
@@ -715,7 +735,6 @@ var getRegionsAu = setInterval(async () => {
 
 
 var getRegionsAt = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://covid19.spiessknafl.at/covid19/api/bundesland");
@@ -743,7 +762,6 @@ var getRegionsAt = setInterval(async () => {
 }, 150000);
 
 var getRegionsDk = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://covid-api.com/api/reports?iso=dnk");
@@ -771,7 +789,6 @@ var getRegionsDk = setInterval(async () => {
 }, 150000);
 
 var getRegionsDe = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://rki-covid-api.now.sh/api/states");
@@ -799,7 +816,6 @@ var getRegionsDe = setInterval(async () => {
 }, 150000);
 
 var getRegionsIn = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://api.rootnet.in/covid19-in/stats/latest");
@@ -825,7 +841,6 @@ var getRegionsIn = setInterval(async () => {
 }, 150000);
 
 var getRegionsIt = setInterval(async () => {
-  var today = new Date().toJSON().slice(0, 10).replace(/-/g, '');
   let response;
   try {
     response = await axios.get("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni-latest.json");
