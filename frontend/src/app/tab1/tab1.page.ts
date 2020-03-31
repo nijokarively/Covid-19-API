@@ -17,10 +17,10 @@ export class Tab1Page {
 
   constructor(private covidService: CovidService, private storage: Storage, public toastController: ToastController) { }
 
-  async refreshingToast() {
-    console.log('Refreshing...');
+  async createToast(msg: string) {
+    console.log(msg);
     const toast = await this.toastController.create({
-      message: 'Refreshing...',
+      message: msg,
       duration: 2000
     });
     toast.present();
@@ -28,7 +28,7 @@ export class Tab1Page {
 
   createSubscription() {
     this.sub = interval(300000).subscribe((val) => {
-      this.refreshingToast();
+      this.createToast('Refreshing...');
       this.getData();
     });
   }
@@ -60,7 +60,7 @@ export class Tab1Page {
   }
 
   doRefresh(event) {
-    this.refreshingToast();
+    this.createToast('Refreshing...');
 
     this.getData();
 

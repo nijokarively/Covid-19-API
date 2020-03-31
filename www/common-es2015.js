@@ -761,6 +761,9 @@ let CovidService = class CovidService {
     getTimeSeries() {
         return this.http.get(`${this.apiUrl}timeseries`);
     }
+    getTimeSeriesByCountry(countryCode) {
+        return this.http.get(`${this.apiUrl}timeseries/${countryCode}`);
+    }
     getRegions(countryCode) {
         return this.http.get(`${this.apiUrl}regions/${countryCode}`);
     }

@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [text]="'Countries'" [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      COVID-19 Analytics
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Total Coronavirus Cases</ion-card-subtitle>
+      <ion-card-title>Total Cases</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChartCases></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Total Coronavirus Deaths</ion-card-subtitle>
+      <ion-card-title>Total Deaths</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChartDeaths></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Total Coronavirus Recoveries</ion-card-subtitle>
+      <ion-card-title>Total Recoveries</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChartRecovered></canvas>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

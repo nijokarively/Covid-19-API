@@ -80,6 +80,15 @@ const routes = [
         ]
     },
     {
+        path: 'history/:id',
+        children: [
+            {
+                path: '',
+                loadChildren: () => Promise.all(/*! import() | history-history-module */[__webpack_require__.e("common"), __webpack_require__.e("history-history-module")]).then(__webpack_require__.bind(null, /*! ../history/history.module */ "./src/app/history/history.module.ts")).then(m => m.HistoryPageModule)
+            }
+        ]
+    },
+    {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
