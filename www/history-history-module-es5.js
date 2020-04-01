@@ -34360,7 +34360,13 @@
                   autoSkip: true,
                   maxTicksLimit: 5,
                   callback: function callback(value, index, array) {
-                    return value < 1000000 ? value / 1000 + 'K' : value / 1000000 + 'M';
+                    if (value >= 1000000) {
+                      return value / 1000000 + 'M';
+                    } else if (value >= 1000) {
+                      return value / 1000 + 'K';
+                    } else {
+                      return value;
+                    }
                   }
                 }
               }],
@@ -34397,7 +34403,13 @@
                   autoSkip: true,
                   maxTicksLimit: 5,
                   callback: function callback(value, index, array) {
-                    return value < 1000000 ? value / 1000 + 'K' : value / 1000000 + 'M';
+                    if (value >= 1000000) {
+                      return value / 1000000 + 'M';
+                    } else if (value >= 1000) {
+                      return value / 1000 + 'K';
+                    } else {
+                      return value;
+                    }
                   }
                 }
               }],
@@ -34434,7 +34446,13 @@
                   autoSkip: true,
                   maxTicksLimit: 5,
                   callback: function callback(value, index, array) {
-                    return value < 1000000 ? value / 1000 + 'K' : value / 1000000 + 'M';
+                    if (value >= 1000000) {
+                      return value / 1000000 + 'M';
+                    } else if (value >= 1000) {
+                      return value / 1000 + 'K';
+                    } else {
+                      return value;
+                    }
                   }
                 }
               }],
@@ -34471,7 +34489,13 @@
                   autoSkip: true,
                   maxTicksLimit: 5,
                   callback: function callback(value, index, array) {
-                    return value < 1000000 ? value / 1000 + 'K' : value / 1000000 + 'M';
+                    if (value >= 1000000) {
+                      return value / 1000000 + 'M';
+                    } else if (value >= 1000) {
+                      return value / 1000 + 'K';
+                    } else {
+                      return value;
+                    }
                   }
                 }
               }],
@@ -34508,7 +34532,13 @@
                   autoSkip: true,
                   maxTicksLimit: 5,
                   callback: function callback(value, index, array) {
-                    return value < 1000000 ? value / 1000 + 'K' : value / 1000000 + 'M';
+                    if (value >= 1000000) {
+                      return value / 1000000 + 'M';
+                    } else if (value >= 1000) {
+                      return value / 1000 + 'K';
+                    } else {
+                      return value;
+                    }
                   }
                 }
               }],
@@ -34530,25 +34560,25 @@
             labels: this.tDates,
             datasets: [{
               label: 'Cases',
-              pointRadius: 0,
+              pointRadius: 3,
               data: this.tCases,
               backgroundColor: 'rgba(25,118,210, 0.0)',
               borderColor: 'rgb(25,118,210)',
-              borderWidth: 1
+              borderWidth: 2
             }, {
               label: 'Deaths',
-              pointRadius: 0,
+              pointRadius: 3,
               data: this.tDeaths,
               backgroundColor: 'rgba(211,47,47, 0.0)',
               borderColor: 'rgb(211,47,47)',
-              borderWidth: 1
+              borderWidth: 2
             }, {
               label: 'Recoveries',
-              pointRadius: 0,
+              pointRadius: 3,
               data: this.tRecovered,
               backgroundColor: 'rgba(56,142,60, 0.0)',
               borderColor: 'rgb(56,142,60)',
-              borderWidth: 1
+              borderWidth: 2
             }]
           },
           options: {
@@ -34560,9 +34590,9 @@
                   autoSkip: true,
                   maxTicksLimit: 5,
                   callback: function callback(value, index, array) {
-                    if (value > 1000000) {
+                    if (value >= 1000000) {
                       return value / 1000000 + 'M';
-                    } else if (value > 1000) {
+                    } else if (value >= 1000) {
                       return value / 1000 + 'K';
                     } else {
                       return value;
