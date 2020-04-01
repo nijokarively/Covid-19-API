@@ -33775,7 +33775,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button [text]=\"'Countries'\" [icon]=\"buttonIcon\">\n      </ion-back-button>\n    </ion-buttons>\n    <ion-title>\n      COVID-19 Analytics\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content [fullscreen]=\"true\">\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Total Coronavirus Cases</ion-card-subtitle>\n      <ion-card-title>Total Cases</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <canvas #barChartCases></canvas>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Total Coronavirus Deaths</ion-card-subtitle>\n      <ion-card-title>Total Deaths</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <canvas #barChartDeaths></canvas>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-subtitle>Total Coronavirus Recoveries</ion-card-subtitle>\n      <ion-card-title>Total Recoveries</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <canvas #barChartRecovered></canvas>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button [text]=\"'Countries'\" [icon]=\"buttonIcon\">\r\n      </ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      COVID-19 Analytics\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Total Coronavirus Cases</ion-card-subtitle>\r\n      <ion-card-title>Total Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartCases></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Total Coronavirus Deaths</ion-card-subtitle>\r\n      <ion-card-title>Total Deaths</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartDeaths></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Total Coronavirus Recoveries</ion-card-subtitle>\r\n      <ion-card-title>Total Recoveries</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartRecovered></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n</ion-content>\r\n");
 
 /***/ }),
 
@@ -33926,6 +33926,7 @@ let HistoryPage = class HistoryPage {
         this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["interval"])(300000).subscribe((val) => {
             this.createToast('Refreshing...');
             this.getData(this.countryCode);
+            this.loadCharts();
         });
     }
     deleteSubscription() {
@@ -33938,7 +33939,7 @@ let HistoryPage = class HistoryPage {
                 labels: this.tDates,
                 datasets: [{
                         label: 'Cases',
-                        pointRadius: 0,
+                        pointRadius: 3,
                         data: this.tCases,
                         backgroundColor: 'rgb(25,118,210)',
                         borderColor: 'rgb(25,118,210)',
@@ -33972,7 +33973,7 @@ let HistoryPage = class HistoryPage {
                 labels: this.tDates,
                 datasets: [{
                         label: 'Deaths',
-                        pointRadius: 0,
+                        pointRadius: 3,
                         data: this.tDeaths,
                         backgroundColor: 'rgb(211,47,47)',
                         borderColor: 'rgb(211,47,47)',
@@ -34006,7 +34007,7 @@ let HistoryPage = class HistoryPage {
                 labels: this.tDates,
                 datasets: [{
                         label: 'Recoveries',
-                        pointRadius: 0,
+                        pointRadius: 3,
                         data: this.tRecovered,
                         backgroundColor: 'rgb(56,142,60)',
                         borderColor: 'rgb(56,142,60)',
@@ -34068,6 +34069,12 @@ let HistoryPage = class HistoryPage {
             }
         });
     }
+    loadCharts() {
+        this.parseHistoricalData();
+        this.createBarChartCases();
+        this.createBarChartDeaths();
+        this.createBarChartRecovered();
+    }
     ionViewWillEnter() {
         this.countryCode = this.route.snapshot.paramMap.get('id');
         this.dataSetName = 'historical-' + this.countryCode;
@@ -34075,10 +34082,7 @@ let HistoryPage = class HistoryPage {
         this.createSubscription();
     }
     ionViewDidEnter() {
-        this.parseHistoricalData();
-        this.createBarChartCases();
-        this.createBarChartDeaths();
-        this.createBarChartRecovered();
+        this.loadCharts();
     }
     ionViewDidLeave() {
         this.deleteSubscription();
@@ -34086,6 +34090,7 @@ let HistoryPage = class HistoryPage {
     doRefresh(event) {
         this.createToast('Refreshing...');
         this.getData(this.countryCode);
+        this.loadCharts();
         setTimeout(() => {
             console.log('Async operation has ended');
             event.target.complete();

@@ -47,6 +47,7 @@ export class HistoryPage {
     this.sub = interval(300000).subscribe((val) => {
       this.createToast('Refreshing...');
       this.getData(this.countryCode);
+      this.loadCharts();
     });
   }
 
@@ -61,7 +62,7 @@ export class HistoryPage {
         labels: this.tDates,
         datasets: [{
           label: 'Cases',
-          pointRadius: 0,
+          pointRadius: 3,
           data: this.tCases,
           backgroundColor: 'rgb(25,118,210)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(25,118,210)',// array should have same number of elements as number of dataset
@@ -96,7 +97,7 @@ export class HistoryPage {
         labels: this.tDates,
         datasets: [{
           label: 'Deaths',
-          pointRadius: 0,
+          pointRadius: 3,
           data: this.tDeaths,
           backgroundColor: 'rgb(211,47,47)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(211,47,47)',// array should have same number of elements as number of dataset
@@ -131,7 +132,7 @@ export class HistoryPage {
         labels: this.tDates,
         datasets: [{
           label: 'Recoveries',
-          pointRadius: 0,
+          pointRadius: 3,
           data: this.tRecovered,
           backgroundColor: 'rgb(56,142,60)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(56,142,60)',// array should have same number of elements as number of dataset
@@ -196,6 +197,13 @@ export class HistoryPage {
     });
   }
 
+  loadCharts(){
+    this.parseHistoricalData();
+    this.createBarChartCases();
+    this.createBarChartDeaths();
+    this.createBarChartRecovered();
+  }
+
   ionViewWillEnter() {
     this.countryCode = this.route.snapshot.paramMap.get('id');
     this.dataSetName = 'historical-' + this.countryCode;
@@ -204,10 +212,7 @@ export class HistoryPage {
   }
 
   ionViewDidEnter() {
-    this.parseHistoricalData();
-    this.createBarChartCases();
-    this.createBarChartDeaths();
-    this.createBarChartRecovered();
+    this.loadCharts();
   }
 
   ionViewDidLeave() {
@@ -217,6 +222,7 @@ export class HistoryPage {
   doRefresh(event) {
     this.createToast('Refreshing...');
     this.getData(this.countryCode);
+    this.loadCharts();
 
     setTimeout(() => {
       console.log('Async operation has ended');

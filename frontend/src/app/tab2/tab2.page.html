@@ -10,7 +10,11 @@
   <ion-searchbar [(ngModel)]="searchCountry" autocomplete="off"></ion-searchbar>
 </ion-toolbar>
 
-<ion-content [fullscreen]="true">
+<ion-fab vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="goToTop()"><ion-icon name="arrow-up"></ion-icon></ion-fab-button>
+</ion-fab>
+
+<ion-content [fullscreen]="true" #listScroll>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -24,28 +28,30 @@
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-icon *ngIf="country.hasRegionalData" (click)='getRegions(country.isoCode)'
-          style="float: right; zoom:2.0;" name="chevron-forward-circle"></ion-icon>
         <ion-avatar *ngIf="country.flag" style="float: left; margin-right:1em;" slot="start">
           <img src="../assets/flags-countries/{{country.flag}}.svg" />
         </ion-avatar>
-        <ion-label (click)="getHistoricalData(country.isoCode)">
+        <ion-label>
           <p style="overflow: hidden;">
             Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>
             Active: {{country.active | number}}<br>
             Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>
-            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}
+            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}<br>
           </p>
         </ion-label>
+
+        <ion-button shape="round" size="small" color="medium" *ngIf="historical[country.isoCode]" (click)='getHistoricalData(country.isoCode)'
+        style="float: left; margin-bottom: 1rem; margin-top: .5rem;">
+          <ion-icon slot="start" name="analytics"></ion-icon>
+          Analytics
+        </ion-button>
+
+        <ion-button shape="round" size="small" color="primary" *ngIf="country.hasRegionalData" (click)='getRegions(country.isoCode)'
+        style="float: left; margin-left: 1rem; margin-bottom: 1rem; margin-top: .5rem;">
+          Regions
+          <ion-icon slot="start" name="location-sharp"></ion-icon>
+        </ion-button>
       </ion-card-content>
-      <!-- <ion-label>
-        <h1>{{country.country}}</h1>
-        <p>
-          Cases: {{country.cases | number}} | Today: {{country.todayCases | number}} | Active: {{country.active | number}}<br>
-          Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>
-          Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}
-        </p>
-      </ion-label> -->
     </ion-card>
   </ion-list>
 </ion-content>

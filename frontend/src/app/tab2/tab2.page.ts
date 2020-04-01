@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { ToastController, NavController } from '@ionic/angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { ToastController, NavController, IonContent  } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Subscription, interval } from 'rxjs';
 import { CovidService } from '../covid.service';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-tab2',
@@ -10,6 +11,8 @@ import { CovidService } from '../covid.service';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  @ViewChild('listScroll', { static: false }) private listScroll: IonContent;
+
 
   countries: any = null;
   historical: any = null;
@@ -73,6 +76,10 @@ export class Tab2Page {
         });
       }
     });
+  }
+
+  goToTop(){
+    this.listScroll.scrollToTop();
   }
 
   ionViewWillEnter() {
