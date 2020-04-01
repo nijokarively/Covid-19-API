@@ -606,14 +606,17 @@ var getGlobalTimeSeries = setInterval(async () => {
   // to store parsed data
   const entries = Object.entries(response.data);
   let result = {};
+  let countryList = {};
   for (const [country, data] of entries) {
     let countryName = countryNameFix[country] || country;
     let isoCodeUpper = countryIso2Dic[countryName.toUpperCase()];
     let isoCode = isoCodeUpper.toLowerCase();
     result[isoCode] = data;
+    countryList[isoCode] = countryName;
   }
 
   db.set("timeseries", result);
+  db.set("timeseries-country-list", countryList);
   console.log("Time-Series data refreshed");
 }, 150000);
 
@@ -965,7 +968,12 @@ app.get("/all/", async function (req, res) {
 });
 
 app.get("/timeseries/", async function (req, res) {
-  let timeSeries = await db.fetch("timeseries");
+  let timeSeriesCountryList = await db.fetch("timeseries-country-list");
+  res.send(timeSeriesCountryList);
+});
+
+app.get("/timeseries/all/", async function (req, res) {
+  let timeSeries = await db.fetch("timeseriest");
   res.send(timeSeries);
 });
 
