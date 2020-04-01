@@ -14,7 +14,11 @@
   <ion-searchbar [(ngModel)]="searchRegion" autocomplete="off"></ion-searchbar>
 </ion-toolbar>
 
-<ion-content [fullscreen]="true">
+<ion-fab vertical="bottom" horizontal="end">
+  <ion-fab-button size='small' (click)="goToTop()"><ion-icon name="arrow-up"></ion-icon></ion-fab-button>
+</ion-fab>
+
+<ion-content [fullscreen]="true" #listScroll>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
