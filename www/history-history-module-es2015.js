@@ -33775,7 +33775,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button [text]=\"'Countries'\" [icon]=\"buttonIcon\">\r\n      </ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      COVID-19 Analytics\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Cases in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartCases></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Deaths in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Deaths</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartDeaths></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Recoveries in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Recoveries</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartRecovered></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Active Cases in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Active Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartActive></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Closed Cases in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Closed Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartClosed></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>COVID-19 Overview in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Overview</ion-card-title>\r\n      <p>(Logarithmic Scale)</p>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartOverview></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n</ion-content>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button [text]=\"'Countries'\" [icon]=\"buttonIcon\">\r\n      </ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      COVID-19 Analytics\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Cases in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartCases></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Deaths in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Deaths</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartDeaths></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Recoveries in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Recoveries</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartRecovered></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Active Cases in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Active Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartActive></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Closed Cases in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Closed Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartClosed></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Cases Overview in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Overview</ion-card-title>\r\n      <p>(Logarithmic Scale)</p>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartOverview></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n</ion-content>\r\n");
 
 /***/ }),
 
@@ -33956,7 +33956,17 @@ let HistoryPage = class HistoryPage {
                                 beginAtZero: true,
                                 autoSkip: true,
                                 maxTicksLimit: 5,
-                                callback: function (value, index, array) { return (value < 1000000) ? value / 1000 + 'K' : value / 1000000 + 'M'; }
+                                callback: function (value, index, array) {
+                                    if (value >= 1000000) {
+                                        return value / 1000000 + 'M';
+                                    }
+                                    else if (value >= 1000) {
+                                        return value / 1000 + 'K';
+                                    }
+                                    else {
+                                        return value;
+                                    }
+                                }
                             }
                         }],
                     xAxes: [{
@@ -33990,7 +34000,17 @@ let HistoryPage = class HistoryPage {
                                 beginAtZero: true,
                                 autoSkip: true,
                                 maxTicksLimit: 5,
-                                callback: function (value, index, array) { return (value < 1000000) ? value / 1000 + 'K' : value / 1000000 + 'M'; }
+                                callback: function (value, index, array) {
+                                    if (value >= 1000000) {
+                                        return value / 1000000 + 'M';
+                                    }
+                                    else if (value >= 1000) {
+                                        return value / 1000 + 'K';
+                                    }
+                                    else {
+                                        return value;
+                                    }
+                                }
                             }
                         }],
                     xAxes: [{
@@ -34024,7 +34044,17 @@ let HistoryPage = class HistoryPage {
                                 beginAtZero: true,
                                 autoSkip: true,
                                 maxTicksLimit: 5,
-                                callback: function (value, index, array) { return (value < 1000000) ? value / 1000 + 'K' : value / 1000000 + 'M'; }
+                                callback: function (value, index, array) {
+                                    if (value >= 1000000) {
+                                        return value / 1000000 + 'M';
+                                    }
+                                    else if (value >= 1000) {
+                                        return value / 1000 + 'K';
+                                    }
+                                    else {
+                                        return value;
+                                    }
+                                }
                             }
                         }],
                     xAxes: [{
@@ -34058,7 +34088,17 @@ let HistoryPage = class HistoryPage {
                                 beginAtZero: true,
                                 autoSkip: true,
                                 maxTicksLimit: 5,
-                                callback: function (value, index, array) { return (value < 1000000) ? value / 1000 + 'K' : value / 1000000 + 'M'; }
+                                callback: function (value, index, array) {
+                                    if (value >= 1000000) {
+                                        return value / 1000000 + 'M';
+                                    }
+                                    else if (value >= 1000) {
+                                        return value / 1000 + 'K';
+                                    }
+                                    else {
+                                        return value;
+                                    }
+                                }
                             }
                         }],
                     xAxes: [{
@@ -34092,7 +34132,17 @@ let HistoryPage = class HistoryPage {
                                 beginAtZero: true,
                                 autoSkip: true,
                                 maxTicksLimit: 5,
-                                callback: function (value, index, array) { return (value < 1000000) ? value / 1000 + 'K' : value / 1000000 + 'M'; }
+                                callback: function (value, index, array) {
+                                    if (value >= 1000000) {
+                                        return value / 1000000 + 'M';
+                                    }
+                                    else if (value >= 1000) {
+                                        return value / 1000 + 'K';
+                                    }
+                                    else {
+                                        return value;
+                                    }
+                                }
                             }
                         }],
                     xAxes: [{
@@ -34112,27 +34162,27 @@ let HistoryPage = class HistoryPage {
                 labels: this.tDates,
                 datasets: [{
                         label: 'Cases',
-                        pointRadius: 0,
+                        pointRadius: 3,
                         data: this.tCases,
                         backgroundColor: 'rgba(25,118,210, 0.0)',
                         borderColor: 'rgb(25,118,210)',
-                        borderWidth: 1
+                        borderWidth: 2
                     },
                     {
                         label: 'Deaths',
-                        pointRadius: 0,
+                        pointRadius: 3,
                         data: this.tDeaths,
                         backgroundColor: 'rgba(211,47,47, 0.0)',
                         borderColor: 'rgb(211,47,47)',
-                        borderWidth: 1
+                        borderWidth: 2
                     },
                     {
                         label: 'Recoveries',
-                        pointRadius: 0,
+                        pointRadius: 3,
                         data: this.tRecovered,
                         backgroundColor: 'rgba(56,142,60, 0.0)',
                         borderColor: 'rgb(56,142,60)',
-                        borderWidth: 1
+                        borderWidth: 2
                     }]
             },
             options: {
@@ -34144,10 +34194,10 @@ let HistoryPage = class HistoryPage {
                                 autoSkip: true,
                                 maxTicksLimit: 5,
                                 callback: function (value, index, array) {
-                                    if (value > 1000000) {
+                                    if (value >= 1000000) {
                                         return value / 1000000 + 'M';
                                     }
-                                    else if (value > 1000) {
+                                    else if (value >= 1000) {
                                         return value / 1000 + 'K';
                                     }
                                     else {
