@@ -34079,7 +34079,7 @@
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button [text]=\"'Countries'\" [icon]=\"buttonIcon\">\r\n      </ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      COVID-19 Analytics\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Total Coronavirus Cases</ion-card-subtitle>\r\n      <ion-card-title>Total Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartCases></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Total Coronavirus Deaths</ion-card-subtitle>\r\n      <ion-card-title>Total Deaths</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartDeaths></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Total Coronavirus Recoveries</ion-card-subtitle>\r\n      <ion-card-title>Total Recoveries</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartRecovered></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n</ion-content>\r\n";
+    __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button [text]=\"'Countries'\" [icon]=\"buttonIcon\">\r\n      </ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      COVID-19 Analytics\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Cases in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartCases></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Deaths in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Deaths</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartDeaths></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Recoveries in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Recoveries</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartRecovered></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Active Cases in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Active Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartActive></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>Closed Cases in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Total Closed Cases</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartClosed></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-subtitle>COVID-19 Overview in {{countryName}}</ion-card-subtitle>\r\n      <ion-card-title>Overview</ion-card-title>\r\n      <p>(Logarithmic Scale)</p>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <canvas #barChartOverview></canvas>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n</ion-content>\r\n";
     /***/
   },
 
@@ -34304,12 +34304,15 @@
         this.storage = storage;
         this.navCtrl = navCtrl;
         this.historical = null;
+        this.countryName = null;
         this.countryCode = '';
         this.dataSetName = '';
         this.tDates = [];
         this.tCases = [];
         this.tDeaths = [];
         this.tRecovered = [];
+        this.tActive = [];
+        this.tClosed = [];
       }
 
       createToast(msg) {
@@ -34344,7 +34347,7 @@
               label: 'Cases',
               pointRadius: 3,
               data: this.tCases,
-              backgroundColor: 'rgb(25,118,210)',
+              backgroundColor: 'rgba(25,118,210, 0.7)',
               borderColor: 'rgb(25,118,210)',
               borderWidth: 1
             }]
@@ -34381,7 +34384,7 @@
               label: 'Deaths',
               pointRadius: 3,
               data: this.tDeaths,
-              backgroundColor: 'rgb(211,47,47)',
+              backgroundColor: 'rgba(211,47,47, 0.7)',
               borderColor: 'rgb(211,47,47)',
               borderWidth: 1
             }]
@@ -34418,7 +34421,7 @@
               label: 'Recoveries',
               pointRadius: 3,
               data: this.tRecovered,
-              backgroundColor: 'rgb(56,142,60)',
+              backgroundColor: 'rgba(56,142,60, 0.7)',
               borderColor: 'rgb(56,142,60)',
               borderWidth: 1
             }]
@@ -34446,25 +34449,165 @@
         });
       }
 
+      createBarChartActive() {
+        this.bars = new chart_js__WEBPACK_IMPORTED_MODULE_7__["Chart"](this.barChartActive.nativeElement, {
+          type: 'line',
+          data: {
+            labels: this.tDates,
+            datasets: [{
+              label: 'Active Cases',
+              pointRadius: 3,
+              data: this.tActive,
+              backgroundColor: 'rgba(124,77,255, 0.7)',
+              borderColor: 'rgb(124,77,255)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  autoSkip: true,
+                  maxTicksLimit: 5,
+                  callback: function callback(value, index, array) {
+                    return value < 1000000 ? value / 1000 + 'K' : value / 1000000 + 'M';
+                  }
+                }
+              }],
+              xAxes: [{
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 21
+                }
+              }]
+            }
+          }
+        });
+      }
+
+      createBarChartClosed() {
+        this.bars = new chart_js__WEBPACK_IMPORTED_MODULE_7__["Chart"](this.barChartClosed.nativeElement, {
+          type: 'line',
+          data: {
+            labels: this.tDates,
+            datasets: [{
+              label: 'Closed Cases',
+              pointRadius: 3,
+              data: this.tClosed,
+              backgroundColor: 'rgba(69,90,100, 0.7)',
+              borderColor: 'rgb(69,90,100)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  autoSkip: true,
+                  maxTicksLimit: 5,
+                  callback: function callback(value, index, array) {
+                    return value < 1000000 ? value / 1000 + 'K' : value / 1000000 + 'M';
+                  }
+                }
+              }],
+              xAxes: [{
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 21
+                }
+              }]
+            }
+          }
+        });
+      }
+
+      createBarChartOverview() {
+        this.bars = new chart_js__WEBPACK_IMPORTED_MODULE_7__["Chart"](this.barChartOverview.nativeElement, {
+          type: 'line',
+          data: {
+            labels: this.tDates,
+            datasets: [{
+              label: 'Cases',
+              pointRadius: 0,
+              data: this.tCases,
+              backgroundColor: 'rgba(25,118,210, 0.0)',
+              borderColor: 'rgb(25,118,210)',
+              borderWidth: 1
+            }, {
+              label: 'Deaths',
+              pointRadius: 0,
+              data: this.tDeaths,
+              backgroundColor: 'rgba(211,47,47, 0.0)',
+              borderColor: 'rgb(211,47,47)',
+              borderWidth: 1
+            }, {
+              label: 'Recoveries',
+              pointRadius: 0,
+              data: this.tRecovered,
+              backgroundColor: 'rgba(56,142,60, 0.0)',
+              borderColor: 'rgb(56,142,60)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                type: 'logarithmic',
+                ticks: {
+                  beginAtZero: true,
+                  autoSkip: true,
+                  maxTicksLimit: 5,
+                  callback: function callback(value, index, array) {
+                    if (value > 1000000) {
+                      return value / 1000000 + 'M';
+                    } else if (value > 1000) {
+                      return value / 1000 + 'K';
+                    } else {
+                      return value;
+                    }
+                  }
+                }
+              }],
+              xAxes: [{
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 21
+                }
+              }]
+            }
+          }
+        });
+      }
+
       parseHistoricalData() {
         let countryTimeSeries = this.historical;
         let cases = [],
             deaths = [],
             recovered = [],
+            active = [],
+            closed = [],
             dates = [];
 
         if (countryTimeSeries) {
           for (let i = 0; i < countryTimeSeries.length; i++) {
-            let confirmed = countryTimeSeries[i]['confirmed'];
+            let confirmedCases = countryTimeSeries[i]['confirmed'];
 
-            if (confirmed != 0) {
+            if (confirmedCases != 0) {
               var [year, month, day] = countryTimeSeries[i]['date'].split('-');
               let monthName = moment__WEBPACK_IMPORTED_MODULE_3__().month(parseInt(month) - 1).format("MMM");
               let date = monthName + " " + day;
+              let deathsCases = countryTimeSeries[i]['deaths'];
+              let recoveredCases = countryTimeSeries[i]['recovered'];
+              let closedCases = deathsCases + recoveredCases;
+              let activeCases = confirmedCases - closedCases;
               dates.push(date);
-              cases.push(countryTimeSeries[i]['confirmed']);
-              deaths.push(countryTimeSeries[i]['deaths']);
-              recovered.push(countryTimeSeries[i]['recovered']);
+              cases.push(confirmedCases);
+              deaths.push(deathsCases);
+              recovered.push(recoveredCases);
+              active.push(activeCases);
+              closed.push(closedCases);
             }
           }
 
@@ -34472,6 +34615,8 @@
           this.tCases = cases;
           this.tDeaths = deaths;
           this.tRecovered = recovered;
+          this.tActive = active;
+          this.tClosed = closed;
         }
       }
 
@@ -34488,17 +34633,34 @@
         });
       }
 
+      getCountryName() {
+        this.covidService.getTimeSeries().subscribe(data => {
+          if (data) {
+            this.countryName = data[this.countryCode];
+            this.storage.set('country-name', this.countryName);
+          } else {
+            this.storage.get('country-name').then(val => {
+              this.countryName = val;
+            });
+          }
+        });
+      }
+
       loadCharts() {
         this.parseHistoricalData();
         this.createBarChartCases();
         this.createBarChartDeaths();
         this.createBarChartRecovered();
+        this.createBarChartActive();
+        this.createBarChartClosed();
+        this.createBarChartOverview();
       }
 
       ionViewWillEnter() {
         this.countryCode = this.route.snapshot.paramMap.get('id');
         this.dataSetName = 'historical-' + this.countryCode;
         this.getData(this.countryCode);
+        this.getCountryName();
         this.createSubscription();
       }
 
@@ -34546,6 +34708,18 @@
       read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
       static: false
     }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])], HistoryPage.prototype, "barChartRecovered", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('barChartActive', {
+      read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
+      static: false
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])], HistoryPage.prototype, "barChartActive", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('barChartClosed', {
+      read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
+      static: false
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])], HistoryPage.prototype, "barChartClosed", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('barChartOverview', {
+      read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
+      static: false
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])], HistoryPage.prototype, "barChartOverview", void 0);
     HistoryPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-history',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(

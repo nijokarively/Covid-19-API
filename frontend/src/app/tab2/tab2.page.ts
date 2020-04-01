@@ -1,9 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ToastController, NavController, IonContent  } from '@ionic/angular';
+import { Component, ViewChild } from '@angular/core';
+import { ToastController, NavController, IonContent } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Subscription, interval } from 'rxjs';
 import { CovidService } from '../covid.service';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-tab2',
@@ -15,7 +14,7 @@ export class Tab2Page {
 
 
   countries: any = null;
-  historical: any = null;
+  historicalCountryList: any = null;
   searchCountry: any;
   private sub: Subscription;
 
@@ -35,12 +34,7 @@ export class Tab2Page {
   }
 
   getHistoricalData(countryCode: string) {
-
-    let countryTimeSeries = this.historical[countryCode];
-    if (countryTimeSeries) {
-      this.navCtrl.navigateForward(`/history/${countryCode}`);
-    }
-
+    this.navCtrl.navigateForward(`/history/${countryCode}`);
   }
 
   createSubscription() {
@@ -65,25 +59,28 @@ export class Tab2Page {
         });
       }
     });
+  }
 
+  getTimeSeriesCountryList() {
     this.covidService.getTimeSeries().subscribe((data) => {
       if (data) {
-        this.historical = data;
-        this.storage.set('historical', data);
+        this.historicalCountryList = data;
+        this.storage.set('historical-country-list', data);
       } else {
-        this.storage.get('historical').then((val) => {
-          this.historical = val;
+        this.storage.get('historical-country-list').then((val) => {
+          this.historicalCountryList = val;
         });
       }
     });
   }
 
-  goToTop(){
-    this.listScroll.scrollToTop();
+  goToTop() {
+    this.listScroll.scrollToTop(500);
   }
 
   ionViewWillEnter() {
     this.getData();
+    this.getTimeSeriesCountryList();
     this.createSubscription();
   }
 

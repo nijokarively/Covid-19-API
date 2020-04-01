@@ -11,7 +11,7 @@
 </ion-toolbar>
 
 <ion-fab vertical="bottom" horizontal="end">
-  <ion-fab-button (click)="goToTop()"><ion-icon name="arrow-up"></ion-icon></ion-fab-button>
+  <ion-fab-button size='small' (click)="goToTop()"><ion-icon name="arrow-up"></ion-icon></ion-fab-button>
 </ion-fab>
 
 <ion-content [fullscreen]="true" #listScroll>
@@ -40,7 +40,7 @@
           </p>
         </ion-label>
 
-        <ion-button shape="round" size="small" color="medium" *ngIf="historical[country.isoCode]" (click)='getHistoricalData(country.isoCode)'
+        <ion-button shape="round" size="small" color="medium" *ngIf="historicalCountryList[country.isoCode]" (click)='getHistoricalData(country.isoCode)'
         style="float: left; margin-bottom: 1rem; margin-top: .5rem;">
           <ion-icon slot="start" name="analytics"></ion-icon>
           Analytics

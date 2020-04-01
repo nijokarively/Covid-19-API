@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-title>\r\n      COVID-19 by Country\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-toolbar>\r\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\r\n</ion-toolbar>\r\n\r\n<ion-fab vertical=\"bottom\" horizontal=\"end\">\r\n  <ion-fab-button (click)=\"goToTop()\"><ion-icon name=\"arrow-up\"></ion-icon></ion-fab-button>\r\n</ion-fab>\r\n\r\n<ion-content [fullscreen]=\"true\" #listScroll>\r\n\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\r\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\r\n      <ion-card-header>\r\n        <ion-card-title>\r\n          {{country.country}}\r\n        </ion-card-title>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <ion-avatar *ngIf=\"country.flag\" style=\"float: left; margin-right:1em;\" slot=\"start\">\r\n          <img src=\"../assets/flags-countries/{{country.flag}}.svg\" />\r\n        </ion-avatar>\r\n        <ion-label>\r\n          <p style=\"overflow: hidden;\">\r\n            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>\r\n            Active: {{country.active | number}}<br>\r\n            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\r\n            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}<br>\r\n          </p>\r\n        </ion-label>\r\n\r\n        <ion-button shape=\"round\" size=\"small\" color=\"medium\" *ngIf=\"historical[country.isoCode]\" (click)='getHistoricalData(country.isoCode)'\r\n        style=\"float: left; margin-bottom: 1rem; margin-top: .5rem;\">\r\n          <ion-icon slot=\"start\" name=\"analytics\"></ion-icon>\r\n          Analytics\r\n        </ion-button>\r\n\r\n        <ion-button shape=\"round\" size=\"small\" color=\"primary\" *ngIf=\"country.hasRegionalData\" (click)='getRegions(country.isoCode)'\r\n        style=\"float: left; margin-left: 1rem; margin-bottom: 1rem; margin-top: .5rem;\">\r\n          Regions\r\n          <ion-icon slot=\"start\" name=\"location-sharp\"></ion-icon>\r\n        </ion-button>\r\n      </ion-card-content>\r\n    </ion-card>\r\n  </ion-list>\r\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-title>\r\n      COVID-19 by Country\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-toolbar>\r\n  <ion-searchbar [(ngModel)]=\"searchCountry\" autocomplete=\"off\"></ion-searchbar>\r\n</ion-toolbar>\r\n\r\n<ion-fab vertical=\"bottom\" horizontal=\"end\">\r\n  <ion-fab-button size='small' (click)=\"goToTop()\"><ion-icon name=\"arrow-up\"></ion-icon></ion-fab-button>\r\n</ion-fab>\r\n\r\n<ion-content [fullscreen]=\"true\" #listScroll>\r\n\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-list *ngFor=\"let country of countries | filter:searchCountry\">\r\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\r\n      <ion-card-header>\r\n        <ion-card-title>\r\n          {{country.country}}\r\n        </ion-card-title>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <ion-avatar *ngIf=\"country.flag\" style=\"float: left; margin-right:1em;\" slot=\"start\">\r\n          <img src=\"../assets/flags-countries/{{country.flag}}.svg\" />\r\n        </ion-avatar>\r\n        <ion-label>\r\n          <p style=\"overflow: hidden;\">\r\n            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>\r\n            Active: {{country.active | number}}<br>\r\n            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>\r\n            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}<br>\r\n          </p>\r\n        </ion-label>\r\n\r\n        <ion-button shape=\"round\" size=\"small\" color=\"medium\" *ngIf=\"historicalCountryList[country.isoCode]\" (click)='getHistoricalData(country.isoCode)'\r\n        style=\"float: left; margin-bottom: 1rem; margin-top: .5rem;\">\r\n          <ion-icon slot=\"start\" name=\"analytics\"></ion-icon>\r\n          Analytics\r\n        </ion-button>\r\n\r\n        <ion-button shape=\"round\" size=\"small\" color=\"primary\" *ngIf=\"country.hasRegionalData\" (click)='getRegions(country.isoCode)'\r\n        style=\"float: left; margin-left: 1rem; margin-bottom: 1rem; margin-top: .5rem;\">\r\n          Regions\r\n          <ion-icon slot=\"start\" name=\"location-sharp\"></ion-icon>\r\n        </ion-button>\r\n      </ion-card-content>\r\n    </ion-card>\r\n  </ion-list>\r\n</ion-content>");
 
 /***/ }),
 
@@ -100,7 +100,7 @@ let Tab2Page = class Tab2Page {
         this.storage = storage;
         this.navCtrl = navCtrl;
         this.countries = null;
-        this.historical = null;
+        this.historicalCountryList = null;
     }
     createToast(msg) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -116,10 +116,7 @@ let Tab2Page = class Tab2Page {
         this.navCtrl.navigateForward(`/regions/${countryCode}`);
     }
     getHistoricalData(countryCode) {
-        let countryTimeSeries = this.historical[countryCode];
-        if (countryTimeSeries) {
-            this.navCtrl.navigateForward(`/history/${countryCode}`);
-        }
+        this.navCtrl.navigateForward(`/history/${countryCode}`);
     }
     createSubscription() {
         this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["interval"])(300000).subscribe((val) => {
@@ -142,23 +139,26 @@ let Tab2Page = class Tab2Page {
                 });
             }
         });
+    }
+    getTimeSeriesCountryList() {
         this.covidService.getTimeSeries().subscribe((data) => {
             if (data) {
-                this.historical = data;
-                this.storage.set('historical', data);
+                this.historicalCountryList = data;
+                this.storage.set('historical-country-list', data);
             }
             else {
-                this.storage.get('historical').then((val) => {
-                    this.historical = val;
+                this.storage.get('historical-country-list').then((val) => {
+                    this.historicalCountryList = val;
                 });
             }
         });
     }
     goToTop() {
-        this.listScroll.scrollToTop();
+        this.listScroll.scrollToTop(500);
     }
     ionViewWillEnter() {
         this.getData();
+        this.getTimeSeriesCountryList();
         this.createSubscription();
     }
     ionViewDidLeave() {

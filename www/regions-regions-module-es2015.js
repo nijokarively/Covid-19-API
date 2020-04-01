@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button [text]=\"'Countries'\" [icon]=\"buttonIcon\">\r\n      </ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      COVID-19 by Region\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-toolbar>\r\n  <ion-searchbar [(ngModel)]=\"searchRegion\" autocomplete=\"off\"></ion-searchbar>\r\n</ion-toolbar>\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-list *ngFor=\"let region of regions | filter:searchRegion\">\r\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\r\n      <ion-card-header>\r\n        <ion-card-title>\r\n          {{region.region}}\r\n        </ion-card-title>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <ion-avatar *ngIf=\"region.flag\" style=\"float: left; margin-right:1em;  margin-bottom:1em;\" slot=\"start\">\r\n          <img src=\"../assets/flags-regions/{{region.flag}}.svg\" />\r\n        </ion-avatar>\r\n        <ion-label>\r\n          <br>\r\n          <p style=\"overflow: hidden;\">\r\n            Cases: {{region.cases | number}}\r\n            <span style=\"overflow: hidden;\" *ngIf=\"region.deaths\">\r\n              | Deaths: {{region.deaths | number}}\r\n            </span>\r\n          </p>\r\n        </ion-label>\r\n      </ion-card-content>\r\n    </ion-card>\r\n  </ion-list>\r\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button [text]=\"'Countries'\" [icon]=\"buttonIcon\">\r\n      </ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      COVID-19 by Region\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-toolbar>\r\n  <ion-searchbar [(ngModel)]=\"searchRegion\" autocomplete=\"off\"></ion-searchbar>\r\n</ion-toolbar>\r\n\r\n<ion-fab vertical=\"bottom\" horizontal=\"end\">\r\n  <ion-fab-button size='small' (click)=\"goToTop()\"><ion-icon name=\"arrow-up\"></ion-icon></ion-fab-button>\r\n</ion-fab>\r\n\r\n<ion-content [fullscreen]=\"true\" #listScroll>\r\n\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-list *ngFor=\"let region of regions | filter:searchRegion\">\r\n    <ion-card lines=\"none\" class=\"ion-no-padding\">\r\n      <ion-card-header>\r\n        <ion-card-title>\r\n          {{region.region}}\r\n        </ion-card-title>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <ion-avatar *ngIf=\"region.flag\" style=\"float: left; margin-right:1em;  margin-bottom:1em;\" slot=\"start\">\r\n          <img src=\"../assets/flags-regions/{{region.flag}}.svg\" />\r\n        </ion-avatar>\r\n        <ion-label>\r\n          <br>\r\n          <p style=\"overflow: hidden;\">\r\n            Cases: {{region.cases | number}}\r\n            <span style=\"overflow: hidden;\" *ngIf=\"region.deaths\">\r\n              | Deaths: {{region.deaths | number}}\r\n            </span>\r\n          </p>\r\n        </ion-label>\r\n      </ion-card-content>\r\n    </ion-card>\r\n  </ion-list>\r\n</ion-content>");
 
 /***/ }),
 
@@ -136,6 +136,9 @@ let RegionsPage = class RegionsPage {
             }
         });
     }
+    goToTop() {
+        this.listScroll.scrollToTop(500);
+    }
     ionViewWillEnter() {
         this.countryCode = this.route.snapshot.paramMap.get('id');
         this.getData();
@@ -159,6 +162,10 @@ RegionsPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listScroll', { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"])
+], RegionsPage.prototype, "listScroll", void 0);
 RegionsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-regions',

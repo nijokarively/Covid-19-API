@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Component, ViewChild } from '@angular/core';
+import { ToastController, IonContent } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
@@ -11,6 +11,7 @@ import { CovidService } from '../covid.service';
   styleUrls: ['./regions.page.scss'],
 })
 export class RegionsPage {
+  @ViewChild('listScroll', { static: false }) private listScroll: IonContent;
 
   regions: any = null;
   searchRegion: any;
@@ -51,6 +52,10 @@ export class RegionsPage {
         });
       }
     });
+  }
+
+  goToTop(){
+    this.listScroll.scrollToTop(500);
   }
 
   ionViewWillEnter() {
