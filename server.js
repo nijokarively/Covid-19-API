@@ -411,6 +411,14 @@ const EsRegionsDic = {
 
 const detailCountries = ["Germany", "India", "Italy", "UK", "USA", "China", "Spain", "Austria", "Canada", "Australia", "Denmark"];
 
+function sortByCases(result){
+  let sortedResult = result.sort(function (a, b) {
+    var countryA = a.cases, countryB = b.cases;
+    return countryB - countryA;
+  });
+  return sortedResult;
+};
+
 var getall = setInterval(async () => {
   let response;
   try {
@@ -643,6 +651,8 @@ var getRegionsEs = setInterval(async () => {
     result.push(region);
   }
 
+  result = sortByCases(result);
+
   db.set("es", result);
   console.log("ES data refreshed");
 }, 150000);
@@ -670,6 +680,8 @@ var getRegionsCn = setInterval(async () => {
 
     result.push(region);
   }
+
+  result = sortByCases(result);
 
   db.set("cn", result);
   console.log("CN data refreshed");
@@ -703,6 +715,8 @@ var getRegionsCa = setInterval(async () => {
     }
   }
 
+  result = sortByCases(result);
+
   db.set("ca", result);
   console.log("CA data refreshed");
 }, 150000);
@@ -732,6 +746,8 @@ var getRegionsAu = setInterval(async () => {
 
   }
 
+  result = sortByCases(result);
+
   db.set("au", result);
   console.log("AU data refreshed");
 }, 150000);
@@ -760,6 +776,8 @@ var getRegionsAt = setInterval(async () => {
     result.push(region);
   }
 
+  result = sortByCases(result);
+
   db.set("at", result);
   console.log("AT data refreshed");
 }, 150000);
@@ -786,6 +804,8 @@ var getRegionsDk = setInterval(async () => {
     let region = { "region": regionName, "cases": responseData[i].confirmed || 0, "deaths": responseData[i].deaths || 0, "recovered": responseData[i].recovered || 0, "active": responseData[i].active || 0 };
     result.push(region);
   }
+
+  result = sortByCases(result);
 
   db.set("dk", result);
   console.log("DK data refreshed");
@@ -814,6 +834,8 @@ var getRegionsDe = setInterval(async () => {
     result.push(region);
   }
 
+  result = sortByCases(result);
+
   db.set("de", result);
   console.log("DE data refreshed");
 }, 150000);
@@ -838,6 +860,8 @@ var getRegionsIn = setInterval(async () => {
 
     result.push(region);
   }
+
+  result = sortByCases(result);
 
   db.set("in", result);
   console.log("IN data refreshed");
@@ -866,6 +890,8 @@ var getRegionsIt = setInterval(async () => {
     result.push(region);
   }
 
+  result = sortByCases(result);
+
   db.set("it", result);
   console.log("IT data refreshed");
 }, 150000);
@@ -892,13 +918,15 @@ var getRegionsGb = setInterval(async () => {
     result.push(region);
   }
 
-  let sortedResult = result.sort(function(a, b){
-    if(a.region < b.region) { return -1; }
-    if(a.region > b.region) { return 1; }
-    return 0;
-  });
+  // let sortedResult = result.sort(function(a, b){
+  //   if(a.region < b.region) { return -1; }
+  //   if(a.region > b.region) { return 1; }
+  //   return 0;
+  // });
 
-  db.set("gb", sortedResult);
+  result = sortByCases(result);
+
+  db.set("gb", result);
   console.log("GB data refreshed");
 }, 150000);
 
@@ -946,6 +974,8 @@ var getRegionsUsa = setInterval(async () => {
 
     result.push(region);
   }
+
+  result = sortByCases(result);
 
   db.set("us", result);
   console.log("US data refreshed");
