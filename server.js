@@ -651,9 +651,9 @@ var getRegionsEs = setInterval(async () => {
     result.push(region);
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("es", result);
+  db.set("es", sortedResult);
   console.log("ES data refreshed");
 }, 150000);
 
@@ -681,9 +681,9 @@ var getRegionsCn = setInterval(async () => {
     result.push(region);
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("cn", result);
+  db.set("cn", sortedResult);
   console.log("CN data refreshed");
 }, 150000);
 
@@ -715,9 +715,9 @@ var getRegionsCa = setInterval(async () => {
     }
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("ca", result);
+  db.set("ca", sortedResult);
   console.log("CA data refreshed");
 }, 150000);
 
@@ -746,9 +746,9 @@ var getRegionsAu = setInterval(async () => {
 
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("au", result);
+  db.set("au", sortedResult);
   console.log("AU data refreshed");
 }, 150000);
 
@@ -776,9 +776,9 @@ var getRegionsAt = setInterval(async () => {
     result.push(region);
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("at", result);
+  db.set("at", sortedResult);
   console.log("AT data refreshed");
 }, 150000);
 
@@ -805,9 +805,9 @@ var getRegionsDk = setInterval(async () => {
     result.push(region);
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("dk", result);
+  db.set("dk", sortedResult);
   console.log("DK data refreshed");
 }, 150000);
 
@@ -834,9 +834,9 @@ var getRegionsDe = setInterval(async () => {
     result.push(region);
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("de", result);
+  db.set("de", sortedResult);
   console.log("DE data refreshed");
 }, 150000);
 
@@ -861,9 +861,9 @@ var getRegionsIn = setInterval(async () => {
     result.push(region);
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("in", result);
+  db.set("in", sortedResult);
   console.log("IN data refreshed");
 }, 150000);
 
@@ -890,9 +890,9 @@ var getRegionsIt = setInterval(async () => {
     result.push(region);
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("it", result);
+  db.set("it", sortedResult);
   console.log("IT data refreshed");
 }, 150000);
 
@@ -924,9 +924,9 @@ var getRegionsGb = setInterval(async () => {
   //   return 0;
   // });
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("gb", result);
+  db.set("gb", sortedResult);
   console.log("GB data refreshed");
 }, 150000);
 
@@ -975,9 +975,9 @@ var getRegionsUsa = setInterval(async () => {
     result.push(region);
   }
 
-  result = sortByCases(result);
+  sortedResult = sortByCases(result);
 
-  db.set("us", result);
+  db.set("us", sortedResult);
   console.log("US data refreshed");
 }, 150000);
 
