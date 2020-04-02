@@ -807,7 +807,7 @@ var getRegionsDe = setInterval(async () => {
   let responseData = response.data.states;
 
   for (var i = 0; i < responseData.length; i++) {
-    let regionName = responseData[i].name;
+    let regionName = responseData[i].name.replace(/\s+/g, '');
     let flag = "flag-de-" + deRegionsDic[regionName];
     let region = { "region": regionName, "flag": flag, "cases": responseData[i].count || 0, "deaths": responseData[i].deaths || 0 };
 
