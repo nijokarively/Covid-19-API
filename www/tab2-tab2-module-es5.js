@@ -196,11 +196,11 @@
       }
 
       getRegions(countryCode) {
-        this.navCtrl.navigateForward("/regions/".concat(countryCode));
+        this.navCtrl.navigateForward("/tabs/tab2/regions/".concat(countryCode));
       }
 
       getHistoricalData(countryCode) {
-        this.navCtrl.navigateForward("/history/".concat(countryCode));
+        this.navCtrl.navigateForward("/tabs/tab2/history/".concat(countryCode));
       }
 
       createSubscription() {

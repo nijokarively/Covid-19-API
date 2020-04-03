@@ -30,11 +30,11 @@ export class Tab2Page {
   }
 
   getRegions(countryCode: string) {
-    this.navCtrl.navigateForward(`/regions/${countryCode}`);
+    this.navCtrl.navigateForward(`/tabs/tab2/regions/${countryCode}`);
   }
 
   getHistoricalData(countryCode: string) {
-    this.navCtrl.navigateForward(`/history/${countryCode}`);
+    this.navCtrl.navigateForward(`/tabs/tab2/history/${countryCode}`);
   }
 
   createSubscription() {

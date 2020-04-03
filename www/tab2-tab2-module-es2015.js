@@ -113,10 +113,10 @@ let Tab2Page = class Tab2Page {
         });
     }
     getRegions(countryCode) {
-        this.navCtrl.navigateForward(`/regions/${countryCode}`);
+        this.navCtrl.navigateForward(`/tabs/tab2/regions/${countryCode}`);
     }
     getHistoricalData(countryCode) {
-        this.navCtrl.navigateForward(`/history/${countryCode}`);
+        this.navCtrl.navigateForward(`/tabs/tab2/history/${countryCode}`);
     }
     createSubscription() {
         this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["interval"])(300000).subscribe((val) => {

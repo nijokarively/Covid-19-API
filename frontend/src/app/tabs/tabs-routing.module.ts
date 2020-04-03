@@ -28,6 +28,26 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tab2/regions/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+            import('../regions/regions.module').then(m => m.RegionsPageModule)
+          }
+        ]
+      },
+      {
+        path: 'tab2/history/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+            import('../history/history.module').then( m => m.HistoryPageModule)
+          }
+        ]
+      },
+      {
         path: 'tab3',
         children: [
           {
@@ -41,26 +61,6 @@ const routes: Routes = [
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
-      }
-    ]
-  },
-  {
-    path: 'regions/:id',
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-        import('../regions/regions.module').then(m => m.RegionsPageModule)
-      }
-    ]
-  },
-  {
-    path: 'history/:id',
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-        import('../history/history.module').then( m => m.HistoryPageModule)
       }
     ]
   },

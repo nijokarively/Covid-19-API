@@ -55,6 +55,24 @@ const routes = [
                 ]
             },
             {
+                path: 'tab2/regions/:id',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () => Promise.all(/*! import() | regions-regions-module */[__webpack_require__.e("common"), __webpack_require__.e("regions-regions-module")]).then(__webpack_require__.bind(null, /*! ../regions/regions.module */ "./src/app/regions/regions.module.ts")).then(m => m.RegionsPageModule)
+                    }
+                ]
+            },
+            {
+                path: 'tab2/history/:id',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () => Promise.all(/*! import() | history-history-module */[__webpack_require__.e("common"), __webpack_require__.e("history-history-module")]).then(__webpack_require__.bind(null, /*! ../history/history.module */ "./src/app/history/history.module.ts")).then(m => m.HistoryPageModule)
+                    }
+                ]
+            },
+            {
                 path: 'tab3',
                 children: [
                     {
@@ -67,24 +85,6 @@ const routes = [
                 path: '',
                 redirectTo: '/tabs/tab1',
                 pathMatch: 'full'
-            }
-        ]
-    },
-    {
-        path: 'regions/:id',
-        children: [
-            {
-                path: '',
-                loadChildren: () => Promise.all(/*! import() | regions-regions-module */[__webpack_require__.e("common"), __webpack_require__.e("regions-regions-module")]).then(__webpack_require__.bind(null, /*! ../regions/regions.module */ "./src/app/regions/regions.module.ts")).then(m => m.RegionsPageModule)
-            }
-        ]
-    },
-    {
-        path: 'history/:id',
-        children: [
-            {
-                path: '',
-                loadChildren: () => Promise.all(/*! import() | history-history-module */[__webpack_require__.e("common"), __webpack_require__.e("history-history-module")]).then(__webpack_require__.bind(null, /*! ../history/history.module */ "./src/app/history/history.module.ts")).then(m => m.HistoryPageModule)
             }
         ]
     },
