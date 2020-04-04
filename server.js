@@ -275,11 +275,11 @@ const countryNameFix = {
   "Cote d'Ivoire": "Ivory Coast",
   "Congo (Kinshasa)": "DRC",
   "Congo (Brazzaville)": "Congo",
-  "Central African Republic" : "CAR",
-  "Holy See" : "Vatican City",
-  "Saint Vincent and the Grenadines" : "St. Vincent Grenadines",
-  "West Bank and Gaza" : "Palestine",
-  "Burma" : "Myanmar",
+  "Central African Republic": "CAR",
+  "Holy See": "Vatican City",
+  "Saint Vincent and the Grenadines": "St. Vincent Grenadines",
+  "West Bank and Gaza": "Palestine",
+  "Burma": "Myanmar",
 };
 
 const usStatesDic = {
@@ -411,7 +411,7 @@ const EsRegionsDic = {
 
 const detailCountries = ["Germany", "India", "Italy", "UK", "USA", "China", "Spain", "Austria", "Canada", "Australia", "Denmark"];
 
-function sortByCases(result){
+function sortByCases(result) {
   let sortedResult = result.sort(function (a, b) {
     var countryA = a.cases, countryB = b.cases;
     return countryB - countryA;
@@ -475,7 +475,7 @@ var getCountries = setInterval(async () => {
     .children("td");
 
   // NOTE: this will change when table format change in website
-  const totalColumns = 10;
+  const totalColumns = 12;
   const countryColIndex = 0;
   const casesColIndex = 1;
   const todayCasesColIndex = 2;
@@ -486,7 +486,8 @@ var getCountries = setInterval(async () => {
   const criticalColIndex = 7;
   const casesPerOneMillionColIndex = 8;
   const deathsPerOneMillionColIndex = 9;
-  // const firstCaseColIndex = 10;
+  const testColIndex = 10;
+  const testPerOneMillionColIndex = 11;
 
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
@@ -584,11 +585,24 @@ var getCountries = setInterval(async () => {
         10
       );
     }
-    // get first case
-    // if (i % totalColumns === firstCaseColIndex) {
-    //   let firstCase = cell.children.length != 0 ? cell.children[0].data : "";
-    //   result[result.length - 1].firstCase = firstCase.trim().replace(/,/g, "") || "";
-    // }
+
+    // get total deaths per one million population
+    if (i % totalColumns === testColIndex) {
+      let tests = cell.children.length != 0 ? cell.children[0].data : "";
+      result[result.length - 1].tests = parseInt(
+        tests.trim().replace(/,/g, "") || "0",
+        10
+      );
+    }
+
+    // get total deaths per one million population
+    if (i % totalColumns === testPerOneMillionColIndex) {
+      let testPerOneMillion = cell.children.length != 0 ? cell.children[0].data : "";
+      result[result.length - 1].testPerOneMillion = parseInt(
+        testPerOneMillion.trim().replace(/,/g, "") || "0",
+        10
+      );
+    }
   }
 
   let sortedResult = result.sort(function (a, b) {
@@ -884,7 +898,7 @@ var getRegionsIt = setInterval(async () => {
   for (var i = 0; i < response.data.length; i++) {
     let regionName = response.data[i].denominazione_regione;
     let regionCode = itRegionsDic[regionName.toUpperCase()];
-     let flag = "flag-it-" + regionCode.toLowerCase();
+    let flag = "flag-it-" + regionCode.toLowerCase();
     let region = { "region": response.data[i].denominazione_regione, "flag": flag, "cases": response.data[i].totale_casi || 0, "todayCases": response.data[i].nuovi_attualmente_positivi || 0, "deaths": response.data[i].deceduti || 0, "active": response.data[i].totale_attualmente_positivi || 0 };
 
     result.push(region);
