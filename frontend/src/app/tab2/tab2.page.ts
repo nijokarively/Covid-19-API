@@ -17,7 +17,7 @@ export class Tab2Page {
   historicalCountryList: any = null;
   searchCountry: any;
   private sub: Subscription;
-  private regions = ['World', 'Europe', 'North America', 'Asia', 'South America', 'Africa', 'Oceania', 'Total:'];
+  private regions = ['World', 'Europe', 'North America', 'Asia', 'South America', 'Africa', 'Oceania', 'Total:', ''];
 
   constructor(private covidService: CovidService, public toastController: ToastController, private storage: Storage, private navCtrl: NavController) { }
 
