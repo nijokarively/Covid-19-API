@@ -98,7 +98,7 @@ export class HistoryPage {
           xAxes: [{
             ticks: {
               autoSkip: true,
-              maxTicksLimit: 21,
+              maxTicksLimit: 9,
             }
           }]
         }
@@ -142,7 +142,7 @@ export class HistoryPage {
           xAxes: [{
             ticks: {
               autoSkip: true,
-              maxTicksLimit: 21,
+              maxTicksLimit: 9,
             }
           }]
         }
@@ -186,7 +186,7 @@ export class HistoryPage {
           xAxes: [{
             ticks: {
               autoSkip: true,
-              maxTicksLimit: 21,
+              maxTicksLimit: 9,
             }
           }]
         }
@@ -230,7 +230,7 @@ export class HistoryPage {
           xAxes: [{
             ticks: {
               autoSkip: true,
-              maxTicksLimit: 21,
+              maxTicksLimit: 9,
             }
           }]
         }
@@ -274,7 +274,7 @@ export class HistoryPage {
           xAxes: [{
             ticks: {
               autoSkip: true,
-              maxTicksLimit: 21,
+              maxTicksLimit: 9,
             }
           }]
         }
@@ -335,7 +335,7 @@ export class HistoryPage {
           xAxes: [{
             ticks: {
               autoSkip: true,
-              maxTicksLimit: 21,
+              maxTicksLimit: 9,
             }
           }]
         }

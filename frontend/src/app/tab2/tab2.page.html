@@ -11,7 +11,9 @@
 </ion-toolbar>
 
 <ion-fab vertical="bottom" horizontal="end">
-  <ion-fab-button size='small' (click)="goToTop()"><ion-icon name="arrow-up"></ion-icon></ion-fab-button>
+  <ion-fab-button size='small' (click)="goToTop()">
+    <ion-icon name="arrow-up"></ion-icon>
+  </ion-fab-button>
 </ion-fab>
 
 <ion-content [fullscreen]="true" #listScroll>
@@ -20,38 +22,41 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list *ngFor="let country of countries | filter:searchCountry">
-    <ion-card lines="none" class="ion-no-padding">
-      <ion-card-header>
-        <ion-card-title>
-          {{country.country}}
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-avatar *ngIf="country.flag" style="float: left; margin-right:1em;" slot="start">
-          <img src="../assets/flags-countries/{{country.flag}}.svg" />
-        </ion-avatar>
-        <ion-label>
-          <p style="overflow: hidden;">
-            Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>
-            Active: {{country.active | number}}<br>
-            Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>
-            Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}<br>
-          </p>
-        </ion-label>
+  <ion-list>
+    <div *ngFor="let country of countries | filter:searchCountry">
+      <ion-card *ngIf="regions.indexOf(country.country) == -1" lines="none" class="ion-no-padding">
+        <ion-card-header>
+          <ion-card-title>
+            {{country.country}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-avatar *ngIf="country.flag" style="float: left; margin-right:1em;" slot="start">
+            <img src="../assets/flags-countries/{{country.flag}}.svg" />
+          </ion-avatar>
+          <ion-label>
+            <p style="overflow: hidden;">
+              Cases: {{country.cases | number}} | Today: {{country.todayCases | number}}<br>
+              Active: {{country.active | number}}<br>
+              Deaths: {{country.deaths | number}} | Today: {{country.todayDeaths | number}}<br>
+              Recovered: {{country.recovered | number}} | Critical {{country.critical | number}}<br>
+            </p>
+          </ion-label>
 
-        <ion-button shape="round" size="small" color="medium" *ngIf="historicalCountryList[country.isoCode]" (click)='getHistoricalData(country.isoCode)'
-        style="float: left; margin-bottom: 1rem; margin-top: .5rem;">
-          <ion-icon slot="start" name="analytics"></ion-icon>
-          Analytics
-        </ion-button>
+          <ion-button shape="round" size="small" color="medium" *ngIf="historicalCountryList[country.isoCode]"
+            (click)='getHistoricalData(country.isoCode)' style="float: left; margin-bottom: 1rem; margin-top: .5rem;">
+            <ion-icon slot="start" name="analytics"></ion-icon>
+            Analytics
+          </ion-button>
 
-        <ion-button shape="round" size="small" color="primary" *ngIf="country.hasRegionalData" (click)='getRegions(country.isoCode)'
-        style="float: left; margin-left: 1rem; margin-bottom: 1rem; margin-top: .5rem;">
-          Regions
-          <ion-icon slot="start" name="location-sharp"></ion-icon>
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
+          <ion-button shape="round" size="small" color="primary" *ngIf="country.hasRegionalData"
+            (click)='getRegions(country.isoCode)'
+            style="float: left; margin-left: 1rem; margin-bottom: 1rem; margin-top: .5rem;">
+            Regions
+            <ion-icon slot="start" name="location-sharp"></ion-icon>
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </ion-list>
 </ion-content>

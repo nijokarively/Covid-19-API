@@ -34373,7 +34373,7 @@
               xAxes: [{
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 21
+                  maxTicksLimit: 9
                 }
               }]
             }
@@ -34416,7 +34416,7 @@
               xAxes: [{
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 21
+                  maxTicksLimit: 9
                 }
               }]
             }
@@ -34459,7 +34459,7 @@
               xAxes: [{
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 21
+                  maxTicksLimit: 9
                 }
               }]
             }
@@ -34502,7 +34502,7 @@
               xAxes: [{
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 21
+                  maxTicksLimit: 9
                 }
               }]
             }
@@ -34545,7 +34545,7 @@
               xAxes: [{
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 21
+                  maxTicksLimit: 9
                 }
               }]
             }
@@ -34603,7 +34603,7 @@
               xAxes: [{
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 21
+                  maxTicksLimit: 9
                 }
               }]
             }

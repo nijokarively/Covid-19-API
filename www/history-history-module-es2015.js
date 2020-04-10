@@ -33972,7 +33972,7 @@ let HistoryPage = class HistoryPage {
                     xAxes: [{
                             ticks: {
                                 autoSkip: true,
-                                maxTicksLimit: 21,
+                                maxTicksLimit: 9,
                             }
                         }]
                 }
@@ -34016,7 +34016,7 @@ let HistoryPage = class HistoryPage {
                     xAxes: [{
                             ticks: {
                                 autoSkip: true,
-                                maxTicksLimit: 21,
+                                maxTicksLimit: 9,
                             }
                         }]
                 }
@@ -34060,7 +34060,7 @@ let HistoryPage = class HistoryPage {
                     xAxes: [{
                             ticks: {
                                 autoSkip: true,
-                                maxTicksLimit: 21,
+                                maxTicksLimit: 9,
                             }
                         }]
                 }
@@ -34104,7 +34104,7 @@ let HistoryPage = class HistoryPage {
                     xAxes: [{
                             ticks: {
                                 autoSkip: true,
-                                maxTicksLimit: 21,
+                                maxTicksLimit: 9,
                             }
                         }]
                 }
@@ -34148,7 +34148,7 @@ let HistoryPage = class HistoryPage {
                     xAxes: [{
                             ticks: {
                                 autoSkip: true,
-                                maxTicksLimit: 21,
+                                maxTicksLimit: 9,
                             }
                         }]
                 }
@@ -34209,7 +34209,7 @@ let HistoryPage = class HistoryPage {
                     xAxes: [{
                             ticks: {
                                 autoSkip: true,
-                                maxTicksLimit: 21,
+                                maxTicksLimit: 9,
                             }
                         }]
                 }
