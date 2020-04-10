@@ -45,7 +45,6 @@
 
           <ion-button shape="round" size="small" color="medium" *ngIf="historicalCountryList[country.isoCode]"
             (click)='getHistoricalData(country.isoCode)' style="float: left; margin-bottom: 1rem; margin-top: .5rem;">
-            <ion-icon slot="start" name="analytics"></ion-icon>
             Analytics
           </ion-button>
 
@@ -53,7 +52,6 @@
             (click)='getRegions(country.isoCode)'
             style="float: left; margin-left: 1rem; margin-bottom: 1rem; margin-top: .5rem;">
             Regions
-            <ion-icon slot="start" name="location-sharp"></ion-icon>
           </ion-button>
         </ion-card-content>
       </ion-card>
