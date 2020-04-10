@@ -614,7 +614,7 @@ var getCountries = setInterval(async () => {
 
   db.set("countries", sortedResult);
   console.log("Countries data refreshed");
-}, 10000);
+}, 150000);
 
 var getGlobalTimeSeries = setInterval(async () => {
   let response;
